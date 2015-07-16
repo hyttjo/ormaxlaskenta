@@ -1,0 +1,121 @@
+html, body {
+    padding: 0px;
+    height: 100%;
+}
+
+.div-container {
+    max-width: 1030px;
+    padding: 20px;
+    border: 1px solid #808080;
+    border-width: 0px 1px 1px 1px;
+    background-color: #f9f9f9;
+}
+
+.background-logo {
+    background-image: url('/img/ormax_logo.png');
+    background-repeat: no-repeat;
+    background-attachment: local;
+    background-position: 97% 2%;
+}
+
+.content-area {
+    margin: 0px -20px 0px -20px;
+    padding:  20px;
+    background-color: #282828;
+}
+
+.full-width {
+    width: 100% !important;
+}
+
+.full-height {
+    height: 100% !important; 
+}
+
+.centered {
+    margin: 0 auto;
+}
+
+.left {
+    float: left;
+}
+
+.right {
+    float: right;
+}
+
+.margin-vertical-20px {
+    margin-top: 20px;
+    margin-bottom: 20px;
+} 
+
+.border {
+    border: 1px solid #282828;
+}
+
+.pure-table thead {
+    color: #fff !important;
+}
+
+.pure-table th {
+    background-color: #9e9e9e;
+}
+
+.rowInfo {
+    margin: -3px 3px -3px -2px;
+    cursor: pointer;
+}
+
+.table-subheader {
+    border:  1px solid #9e9e9e !important;
+    background-color: #cbcbcb !important;
+    text-align: center;
+    font-weight: bold;
+}
+
+.noborder-left {
+    border-width:  1px 1px 1px 0px !important;
+}
+
+.noborder-right {
+    border-width:  1px 0px 1px 1px !important;
+}
+
+.table-label {
+    background-color: #f3f3f3 !important;
+}
+
+.table-value input {
+    display: none;
+    width: 108px;
+}
+
+.table-condensed td {
+    background-color: #fff;
+    padding: 0.4em 1em;
+    font-size: 90%;
+}
+
+.table-extra-info-row td {
+    background-color: #cbcbcb;
+}
+
+.table-extra-info-row td div {
+    width: 8%;
+    display: inline-block;
+    margin: 0px 0.8%;
+}
+
+.table-extra-info-row td div span:nth-child(odd) {
+    margin-right: 10px;
+    font-weight: bold;
+}
+
+.sDiv {
+    border-width: 0px !important;
+}
+
+.sDiv2 {
+    float: right !important;
+    width: auto !important;
+}
