@@ -9,7 +9,11 @@
             <div class="content-area full-width">
         <?php
             if (isset($_GET["type"])) { 
-                include "php/order_and_quotation_table.php"; 
+                if ($_GET["type"] == "Lisätarviketarjous") {
+                    include "php/accessories_quotation_table.php"; 
+                } else {
+                    include "php/order_and_quotation_table.php"; 
+                }
             } else {
                 header('Location: php/quotations.php');     
             } 
@@ -17,7 +21,7 @@
             </div>
         <?php
             if (isset($_GET["type"])) { 
-                include "php/scripts/insert_rcs_to_db.php"; 
+                include "php/scripts/insert_url_to_db.php"; 
             }
         ?>
         </div>

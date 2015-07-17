@@ -9,5 +9,9 @@
             <table id="accessories_quotations_table">
             </table>        
         </div>
+        
+        <?php include "order_and_quotation_modal.php"; ?>
+
+        <?php include "info_modal.php"; ?>
     </body>
 </html>

@@ -9,11 +9,16 @@
                 <?php include "order_and_quotation_table.php"; ?>
               </div>
               <div class="modal-footer">
-                <button id="modal-add" type="button" class="btn btn-success hidden">Lisää</button>
-                <button id="modal-delete" type="button" class="btn btn-danger" data-dismiss="modal">Poista</button>
-                <button id="modal-update" type="button" class="btn btn-success hidden">Päivitä</button>
+                <button id="modal-add" type="submit" value="Submit" class="btn btn-success">Lisää</button>
+                <button id="modal-delete" type="button" class="btn btn-danger">Poista</button>
+                <button id="modal-update" type="button" class="btn btn-success">Päivitä</button>
                 <button id="modal-edit" type="button" class="btn btn-warning">Muokkaa</button>
                 <button type="button" class="btn btn-default" data-dismiss="modal">Sulje</button>
+                <div class="modal-deleteConfirmation">
+                    <p>Haluatko varmasti poistaa tämän?</p>
+                    <button id="modal-deleteConfirmation" type="button" class="btn btn-danger" data-dismiss="modal">OK</button>
+                    <button id="modal-deleteCancel" type="button" class="btn btn-default">Peruuta</button>
+                </div>
               </div>
             </div>
           </div>

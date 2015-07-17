@@ -111,6 +111,25 @@ html, body {
     font-weight: bold;
 }
 
+.wrap {
+    white-space: initial !important;
+}
+
+#modal-add, #modal-update {
+    display: none;
+}
+
+.modal-deleteConfirmation {
+    display: none;
+    width: 100%;
+    text-align: left;
+}
+
+.modal-deleteConfirmation p {
+    float: left;
+    margin: 0px 20px;
+}
+
 .sDiv {
     border-width: 0px !important;
 }

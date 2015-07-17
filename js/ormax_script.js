@@ -1,4 +1,4 @@
-$(document).ready(function() {
+$(document).ready(function () {
 
     $('#button_orders').click(function () {
         window.location = 'http://ormaxlaskenta.gear.host/php/orders.php';
@@ -13,7 +13,7 @@ $(document).ready(function() {
     });
 
     show_orders_table();
-    
+
     function show_orders_table() {
         $("#orders_table").flexigrid({
             url: "scripts/get_table_results.php?table=tilaukset",
@@ -37,6 +37,7 @@ $(document).ready(function() {
                 { separator: true }
             ],
             searchitems: [
+                    { display: 'Kaikki kentät', name: 'kaikkikentat', isdefault: true },
                     { display: 'Pvm (vvvv-kk-pp)', name: 'pvm' },
                     { display: 'Tiili', name: 'tiili' },
                     { display: 'Väri', name: 'vari' },
@@ -44,7 +45,7 @@ $(document).ready(function() {
                     { display: 'Viite', name: 'viite' },
                     { display: 'Asiakasnumero', name: 'asiakasnumero' },
                     { display: 'Asiakasnimi', name: 'asiakasnimi' },
-                    { display: 'Nimi', name: 'nimi', isdefault: true },
+                    { display: 'Nimi', name: 'nimi' },
                     { display: 'Puhelin', name: 'puh' },
                     { display: 'Katu', name: 'katunimi' },
                     { display: 'Postinumero', name: 'postinumero' },
@@ -89,6 +90,7 @@ $(document).ready(function() {
                 { separator: true }
             ],
             searchitems: [
+                    { display: 'Kaikki kentät', name: 'kaikkikentat', isdefault: true },
                     { display: 'Pvm (vvvv-kk-pp)', name: 'pvm' },
                     { display: 'Tiili', name: 'tiili' },
                     { display: 'Väri', name: 'vari' },
@@ -96,7 +98,7 @@ $(document).ready(function() {
                     { display: 'Viite', name: 'viite' },
                     { display: 'Asiakasnumero', name: 'asiakasnumero' },
                     { display: 'Asiakasnimi', name: 'asiakasnimi' },
-                    { display: 'Nimi', name: 'nimi', isdefault: true },
+                    { display: 'Nimi', name: 'nimi' },
                     { display: 'Puhelin', name: 'puh' },
                     { display: 'Katu', name: 'katunimi' },
                     { display: 'Postinumero', name: 'postinumero' },
@@ -141,13 +143,14 @@ $(document).ready(function() {
                 { separator: true }
             ],
             searchitems: [
+                    { display: 'Kaikki kentät', name: 'kaikkikentat', isdefault: true },
                     { display: 'Pvm (vvvv-kk-pp)', name: 'pvm' },
                     { display: 'Toimitus Pvm', name: 'toimituspvm' },
                     { display: 'Tiili', name: 'tiili' },
                     { display: 'Väri', name: 'vari' },
                     { display: 'Talotehdas', name: 'talotehdas' },
                     { display: 'Ostotilausnumero', name: 'ostotilausnro' },
-                    { display: 'Nimi', name: 'nimi', isdefault: true },
+                    { display: 'Nimi', name: 'nimi' },
                     { display: 'Puhelin', name: 'puh' },
                     { display: 'Email', name: 'email' },
                     { display: 'Katu', name: 'katunimi' },
@@ -167,7 +170,7 @@ $(document).ready(function() {
             singleSelect: true
         });
     }
-    
+
     $('.sDiv').css('display', 'block');
 
     function FlexiGridButtonCommand(com, grid) {
@@ -199,7 +202,7 @@ $(document).ready(function() {
 
     function ShowAddNewModal() {
         var type = GetTypeFromTableTitle();
-        $(".modal-title").text("Lisää uusi " + type);
+        $(".modal-title").text("Lisää uusi " + type.toLowerCase());
         $("#table-header").text("Ormax - " + type + "-määrälaskenta");
         ModalAddNewMode();
         $('#order_and_quotation_modal').modal('show');
@@ -269,7 +272,7 @@ $(document).ready(function() {
         var json = [];
 
         json.push({ 'id': $('#info-table').data('id') });
-        json.push({ 'type': $("#table-type span").text() });
+        json.push({ 'type': $('#table-type span').text() });
         json.push({ 'date': $("#table-date input").val() });
         json.push({ 'tile': $("#table-tile input").val() });
         json.push({ 'colour': $("#table-colour input").val() });
@@ -296,7 +299,33 @@ $(document).ready(function() {
         return json;
     }
 
+    function ClearInputs() {
+        $('input').each(function () {
+            $(this).val('');
+        });
+    }
+
+    $('#modal-add').click(function () {
+        var json = GetInfoTableJSON();
+        var www = "http://ormaxlaskenta.gear.host/"
+        var url = "";
+
+        $.each(json, function (key, value) {
+            $.each(value, function (key, value) {
+                if (url == "") {
+                    url = "?" + key + "=" + value;
+                } else {
+                    url = url + "&" + key + "=" + value;
+                }
+            });
+        });
+        console.log(www + url);
+    });
+
     function ModalAddNewMode() {
+        ClearInputs();
+        $("#table-type span").text(GetTypeFromTableTitle());
+        $("#table-date input").val(GetDateTimeNow());
         $('#modal-delete').hide();
         $('#modal-edit').hide();
         $('#modal-add').show();
@@ -311,6 +340,7 @@ $(document).ready(function() {
     function ModalEditMode() {
         $('#modal-edit').hide();
         $('#modal-update').show();
+        $('.modal-deleteConfirmation').hide();
         $('.table-value span').hide();
         $('.table-value input').show();
     }
@@ -320,10 +350,38 @@ $(document).ready(function() {
         console.log(GetInfoTableJSON());
     });
 
+    $('#modal-delete').click(function () {
+        $('.modal-deleteConfirmation').show();
+    });
+
+    $('#modal-deleteCancel').click(function () {
+        $('.modal-deleteConfirmation').hide();
+    });
+
+    $('#modal-deleteConfirmation').click(function () {
+        $('#order_and_quotation_modal').modal('hide');
+        var table = GetTableFromType(GetTypeFromTableTitle());
+        var id = $('#info-table').data('id');
+
+        $.ajax({
+            type: "post",
+            url: "/php/scripts/delete_from_db.php",
+            data: "table=" + table + "&id=" + id,
+            success: function (data) {
+                $('#info_modal').modal('show');
+                $('#info_modal .modal-body').html(data);
+                ReloadFlexigrid();
+            }
+        });
+        $('.modal-deleteConfirmation').hide();
+    });
+
     function ModalInfoMode() {
         $('#modal-add').hide();
+        $('#modal-delete').show();
         $('#modal-edit').show();
         $('#modal-update').hide();
+        $('.modal-deleteConfirmation').hide();
         $('.table-value span').show();
         $('.table-value input').hide();
     }
@@ -331,6 +389,12 @@ $(document).ready(function() {
     $('#order_and_quotation_modal').on('hidden.bs.modal', function () {
         ModalInfoMode();
     });
+
+    function ReloadFlexigrid() {
+        $("#orders_table").flexReload();
+        $("#quotations_table").flexReload();
+        $("#accessories_quotations_table").flexReload();
+    }
 
     function GetTypeFromTableTitle() {
         var tableTitle = $('.ftitle').text();
@@ -344,5 +408,29 @@ $(document).ready(function() {
         } else {
             return "";
         }
+    }
+
+    function GetTableFromType(type) {
+        if (type == 'Tarjous') {
+            return "tarjoukset";
+        } else if (type == 'Tilaus') {
+            return "tilaukset";
+        } else if (type == 'Lisätarviketarjous') {
+            return "lisätarviketarjoukset";
+        } else {
+            return "";
+        }
+    }
+
+    function GetDateTimeNow() {
+        var datetime = new Date();
+        var yyyy = datetime.getFullYear().toString();
+        var mm = (datetime.getMonth() + 1).toString();
+        var dd = datetime.getDate().toString();
+        var HH = datetime.getHours().toString();
+        var MM = datetime.getMinutes().toString();
+        var SS = datetime.getSeconds().toString();
+        
+        return yyyy + "-" + (mm[1] ? mm : "0" + mm[0]) + "-" + (dd[1] ? dd : "0" + dd[0]) + " " + (HH[1] ? HH : "0" + HH[0]) + ":" + (MM[1] ? MM : "0" + MM[0]) + ":" + (SS[1] ? SS : "0" + SS[0]);
     }
 });
