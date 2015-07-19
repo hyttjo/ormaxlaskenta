@@ -6,7 +6,13 @@
                 <h4 class="modal-title"></h4>
               </div>
               <div class="modal-body">
-                <?php include "order_and_quotation_table.php"; ?>
+                <?php
+                    if ($page == "accessories_quotations") {
+                        include "accessories_quotation_table.php";
+                    } else {
+                        include "order_and_quotation_table.php"; 
+                    } 
+                ?>
               </div>
               <div class="modal-footer">
                 <button id="modal-add" type="submit" value="Submit" class="btn btn-success">Lisää</button>

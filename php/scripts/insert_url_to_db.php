@@ -1,6 +1,11 @@
 <?php
     include "mysql.php";
 
+    if ($roofPitch == "") $roofPitch = 0;
+    if ($days == "") $days = 0;
+    if ($calculationTime == "") $calculationTime = 0;
+    if ($price == "") $price = 0;
+
     if ($type == "Tarjous") {
         $sql = "INSERT INTO tarjoukset (pvm, tiili, vari, kattoturva, sadevesi, muoto, kaltevuus, paaty, toimitustapa, asiakasryhma, asiakasnumero, asiakasnimi, viite, nimi, puh, katunimi, katunumero, postinumero, kaupunki, tekija, paivienkesto, laskennankesto)
                 VALUES ('" . $date . "'," . 

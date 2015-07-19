@@ -41,19 +41,19 @@
                         </td>
                         <td class="table-label">Talotehdas:</td>
                         <td id="table-houseFactory" class="table-value">
-                            <input type="text" name="houseFactory" maxlength="20">
+                            <input type="text" name="houseFactory" maxlength="20" placeholder="Esim. Kastelli">
                             <span><?php echo $houseFactory ?></span>
                         </td>
                     </tr>
                     <tr>
                         <td class="table-label">Pvm:</td>
                         <td id="table-date" class="table-value">
-                            <input type="text" name="date" maxlength="19">
+                            <input type="text" name="date" maxlength="19" placeholder="vvvv-kk-pp tt:mm:ss">
                             <span><?php echo $date ?></span>
                         </td>
                         <td class="table-label">Puhelin:</td>
                         <td id="table-phone" class="table-value">
-                            <input type="text" name="phone" maxlength="11">
+                            <input type="text" name="phone" maxlength="11" pattern="/^(\d+-?)+\d+$/" placeholder="012-3456789">
                             <span><?php echo $phone ?></span>
                         </td>
                         <td class="table-label">Ostotilausnumero:</td>
@@ -70,12 +70,12 @@
                         </td>
                         <td class="table-label">Email:</td>
                         <td id="table-email" class="table-value">
-                            <input type="email" name="email" maxlength="40">
+                            <input type="email" name="email" maxlength="40" placeholder="email@osoite.com">
                             <span><?php echo $email ?></span>
                         </td>
                         <td class="table-label">Hinta:</td>
                         <td id="table-price" class="table-value">
-                            <input type="number" name="price" maxlength="10">
+                            <input type="number" name="price" maxlength="10" pattern="/^[0-9.,]+$/" placeholder="0000,00">
                             <span><?php echo $price ?></span>
                         </td>
                     </tr>
@@ -92,7 +92,7 @@
                         </td>
                         <td class="table-label">Toimituspäivä:</td>
                         <td id="table-deliveryDate" class="table-value">
-                            <input type="date" name="deliveryDate" maxlength="19">
+                            <input type="date" name="deliveryDate" maxlength="19" placeholder="vvvv-kk-pp">
                             <span><?php echo $deliveryDate ?></span>
                         </td>
                     </tr>
@@ -123,7 +123,7 @@
                         <td></td>
                         <td class="table-label">Postinumero:</td>
                         <td id="table-postalCode" class="table-value">
-                            <input type="text" name="postalCode" maxlength="5">
+                            <input type="text" name="postalCode" maxlength="5" pattern="^(0|[1-9][0-9]*)$">
                             <span><?php echo $postalCode ?></span>
                         </td>
                         <td class="table-label"></td>

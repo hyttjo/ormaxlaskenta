@@ -1,3 +1,7 @@
+<?php
+    $page = "index";    
+?>
+
 <!DOCTYPE html>
 <html lang="fi">
     <head>

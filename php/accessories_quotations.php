@@ -1,3 +1,7 @@
+<?php
+    $page = "accessories_quotations";    
+?>
+
 <!DOCTYPE html>
 <html lang="fi">
     <head>
@@ -10,7 +14,7 @@
             </table>        
         </div>
         
-        <?php include "order_and_quotation_modal.php"; ?>
+        <?php include "datatable_modal.php"; ?>
 
         <?php include "info_modal.php"; ?>
     </body>

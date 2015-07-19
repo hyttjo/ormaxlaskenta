@@ -272,30 +272,30 @@ $(document).ready(function () {
         var json = [];
 
         json.push({ 'id': $('#info-table').data('id') });
-        json.push({ 'type': $('#table-type span').text() });
+        json.push({ 'type': $('#table-type').text() });
         json.push({ 'date': $("#table-date input").val() });
         json.push({ 'tile': $("#table-tile input").val() });
         json.push({ 'colour': $("#table-colour input").val() });
-        json.push({ 'safetyProducts': $("#table-safetyProducts input").val() });
-        json.push({ 'rainwaterProducts': $("#table-rainwaterProducts input").val() });
-        json.push({ 'roofShape': $("#table-roofShape input").val() });
-        json.push({ 'roofPitch': $("#table-roofPitch input").val() });
-        json.push({ 'vergeSolution': $("#table-vergeSolution input").val() });
-        json.push({ 'deliveryMode': $("#table-deliveryMode input").val() });
-        json.push({ 'customerGroup': $("#table-customerGroup input").val() });
-        json.push({ 'soldNumber': $("#table-soldNumber input").val() });
-        json.push({ 'soldName': $("#table-soldName input").val() });
-        json.push({ 'soldRef': $("#table-soldRef input").val() });
+        json.push({ 'safety': $("#table-safetyProducts input").val() });
+        json.push({ 'rainwater': $("#table-rainwaterProducts input").val() });
+        json.push({ 'shape': $("#table-roofShape input").val() });
+        json.push({ 'pitch': $("#table-roofPitch input").val() });
+        json.push({ 'verge': $("#table-vergeSolution input").val() });
+        json.push({ 'delivery': $("#table-deliveryMode input").val() });
+        json.push({ 'group': $("#table-customerGroup input").val() });
+        json.push({ 'soldnumber': $("#table-soldNumber input").val() });
+        json.push({ 'soldname': $("#table-soldName input").val() });
+        json.push({ 'soldref': $("#table-soldRef input").val() });
         json.push({ 'name': $("#table-name input").val() });
         json.push({ 'phone': $("#table-phone input").val() });
         json.push({ 'street': $("#table-street input").val() });
-        json.push({ 'streetNo': $("#table-streetNo input").val() });
-        json.push({ 'postalCode': $("#table-postalCode input").val() });
+        json.push({ 'streetno': $("#table-streetNo input").val() });
+        json.push({ 'postal': $("#table-postalCode input").val() });
         json.push({ 'city': $("#table-city input").val() });
         json.push({ 'maker': $("#table-maker input").val() });
         json.push({ 'days': $("#table-days input").val() });
-        json.push({ 'calculationTime': $("#table-calculationTime input").val() });
-
+        json.push({ 'calctime': $("#table-calculationTime input").val() });
+  
         return json;
     }
 
@@ -319,12 +319,12 @@ $(document).ready(function () {
                 }
             });
         });
-        console.log(www + url);
+        window.location.href = www + encodeURI(url);
     });
 
     function ModalAddNewMode() {
         ClearInputs();
-        $("#table-type span").text(GetTypeFromTableTitle());
+        $("#table-type").text(GetTypeFromTableTitle());
         $("#table-date input").val(GetDateTimeNow());
         $('#modal-delete').hide();
         $('#modal-edit').hide();
@@ -430,7 +430,7 @@ $(document).ready(function () {
         var HH = datetime.getHours().toString();
         var MM = datetime.getMinutes().toString();
         var SS = datetime.getSeconds().toString();
-        
+
         return yyyy + "-" + (mm[1] ? mm : "0" + mm[0]) + "-" + (dd[1] ? dd : "0" + dd[0]) + " " + (HH[1] ? HH : "0" + HH[0]) + ":" + (MM[1] ? MM : "0" + MM[0]) + ":" + (SS[1] ? SS : "0" + SS[0]);
     }
 });
