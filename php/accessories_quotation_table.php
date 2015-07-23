@@ -14,10 +14,10 @@
     $postalCode = isset($_GET["postal"]) ? $_GET["postal"] : "";
     $city = isset($_GET["city"]) ? $_GET["city"] : "";
     $price = isset($_GET["price"]) ? $_GET["price"] : "";
-    $deliveryDate = isset($_GET["delivery"]) ? $_GET["delivery"] : "";  
+    $deliveryDate = isset($_GET["deliverydate"]) ? $_GET["deliverydate"] : "";  
 ?>
         <form autocomplete="on">
-            <table id="info-table" class="pure-table table-condensed full-width centered border" data-id="" data-table="">
+            <table id="info-table" class="pure-table table-condensed full-width centered border table-accessories" data-id="" data-table="">
                 <thead>
                     <tr>
                         <th colspan="6" id="table-header">Ormax - Lisätarvikelaskenta</th>
@@ -92,7 +92,7 @@
                         </td>
                         <td class="table-label">Toimituspäivä:</td>
                         <td id="table-deliveryDate" class="table-value">
-                            <input type="date" name="deliveryDate" maxlength="19" placeholder="vvvv-kk-pp">
+                            <input type="text" name="deliveryDate" maxlength="19" placeholder="vvvv-kk-pp">
                             <span><?php echo $deliveryDate ?></span>
                         </td>
                     </tr>

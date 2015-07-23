@@ -7,6 +7,9 @@
     $qtype = ''; // Search column
     $query = ''; // Search string
     $rp = 20;
+    $daterangequery = '';
+    $startdate = '';
+    $enddate = '';
 
     $table = 'tarjoukset';
 
@@ -33,15 +36,35 @@
     if (isset($_POST['rp'])) {
         $rp = $_POST['rp'];
     }
-    
+
+    if (isset($_POST['startdate'])) {
+        $startdate = $_POST['startdate'];
+    }
+    if (isset($_POST['enddate'])) {
+        $enddate = $_POST['enddate'];
+    }
+
     // Setup sort and search SQL using posted data
     $sortSql = "ORDER BY $sortname $sortorder";
 
-    $collate = "COLLATE UTF8_GENERAL_CI";
-    $searchSql = ($qtype != '' && $query != '') ? "WHERE `$qtype` LIKE '%$query%' $collate" : '';
+    $searchSql = ($qtype != '' && $query != '') ? "WHERE `$qtype` LIKE '%$query%'" : '';
     
     if ($qtype == 'kaikkikentat') {
-        $searchSql = ($query != '') ? GetQueryStringAllFields($table, $query, $collate) : '';
+        $searchSql = ($query != '') ? GetQueryStringAllFields($table, $query) : '';
+    }
+
+    if ($startdate != '' && $enddate != '') {
+        $daterangequery = "pvm BETWEEN '$startdate' AND '$enddate'";
+    } else if ($startdate != '' && $enddate =='') {
+        $daterangequery = "pvm >= '$startdate'";
+    } else if ($enddate != '' && $startdate == '') {
+        $daterangequery = "pvm <= '$enddate'";
+    }
+
+    if ($searchSql == '' && $startdate != '' || $searchSql == '' && $enddate != '') {
+        $searchSql = "WHERE $daterangequery";
+    } else if ($searchSql != '' && $startdate != '' || $searchSql != '' && $enddate != '') {
+        $searchSql .= " AND $daterangequery";
     }
     
     // Get total count of records
@@ -61,6 +84,7 @@
     $data['rows'] = array();
 
     $sql = "SELECT * FROM $table $searchSql $sortSql $limitSql";
+
     $results = mysqli_query($conn, $sql) or die(mysqli_error($conn));
 
     while ($row = mysqli_fetch_assoc($results)) {
@@ -120,10 +144,10 @@
 
     echo json_encode($data);
     
-    function GetQueryStringAllFields($table, $query, $collate) {
-        $quotation_fields = array("pvm", "tiili", "vari", "kattoturva", "sadevesi", "muoto", "kaltevuus", "paaty", "toimitustapa", "asiakasryhma", "asiakasnumero", "asiakasnimi", "viite", "nimi", "puh", "katunimi", "katunumero", "postinumero", "kaupunki", "tekija", "paivienkesto", "laskennankesto");
-        $order_fields = array("pvm", "tiili", "vari", "kattoturva", "sadevesi", "muoto", "kaltevuus", "paaty", "toimitustapa", "asiakasryhma", "asiakasnumero", "asiakasnimi", "viite", "nimi", "puh", "katunimi", "katunumero", "postinumero", "kaupunki");
-        $accessories_fields = array("pvm", "tiili", "vari", "kattoturva", "sadevesi", "muoto", "kaltevuus", "paaty", "toimitustapa", "asiakasryhma", "asiakasnumero", "asiakasnimi", "viite", "nimi", "puh", "katunimi", "katunumero", "postinumero", "kaupunki", "tekija", "paivienkesto", "laskennankesto");
+    function GetQueryStringAllFields($table, $query) {
+        $quotation_fields = array("pvm", "tiili", "vari", "kattoturva", "sadevesi", "muoto", "kaltevuus", "paaty", "toimitustapa", "asiakasryhma", "asiakasnumero", "asiakasnimi", "viite", "nimi", "puh", "katunimi", "katunumero", "postinumero", "kaupunki", "tekija", "paivienkesto", "laskennankesto", "asiakkaanvastuulla");
+        $order_fields = array("pvm", "tiili", "vari", "kattoturva", "sadevesi", "muoto", "kaltevuus", "paaty", "toimitustapa", "asiakasryhma", "asiakasnumero", "asiakasnimi", "viite", "nimi", "puh", "katunimi", "katunumero", "postinumero", "kaupunki", "tekija", "paivienkesto", "laskennankesto");
+        $accessories_fields = array("pvm", "tiili", "vari", "talotehdas", "ostotilausnro", "nimi", "puh", "email", "kontaktihenkilo", "katunimi", "katunumero", "postinumero", "kaupunki", "hinta", "toimituspvm");
 
         if ($table == 'tarjoukset') {
             $fields = $quotation_fields;
@@ -139,11 +163,11 @@
             $field = $fields[$i];
             
             if ($i == (count($fields) - 1)) {
-                $query_allfields .= "`$field` LIKE '%$query%' $collate";
+                $query_allfields .= "`$field` LIKE '%$query%')";
             } else if ($i == 0) {
-                $query_allfields .= "WHERE `$field` LIKE '%$query%' $collate OR ";
+                $query_allfields .= "WHERE (`$field` LIKE '%$query%' OR ";
             } else {
-                $query_allfields .= "`$field` LIKE '%$query%' $collate OR ";
+                $query_allfields .= "`$field` LIKE '%$query%' OR ";
             }
         }
         return $query_allfields;

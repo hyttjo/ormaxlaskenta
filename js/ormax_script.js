@@ -189,7 +189,7 @@ $(document).ready(function () {
 
         $.ajax({
             type: "post",
-            url: "/php/scripts/get_order_and_quotation_info.php",
+            url: "/php/scripts/get_table_row_info.php",
             data: "type=" + type + "&id=" + id,
             success: function (data) {
                 var json = $.parseJSON(data);
@@ -241,6 +241,13 @@ $(document).ready(function () {
         $("#table-maker span").text(json.tekija);
         $("#table-days span").text(json.paivienkesto);
         $("#table-calculationTime span").text(json.laskennankesto);
+        $("#table-email span").text(json.email);
+        $("#table-contactPerson span").text(json.kontaktihenkilo);
+        $("#table-houseFactory span").text(json.talotehdas);
+        $("#table-orderNumber span").text(json.ostotilausnro);
+        $("#table-price span").text(json.hinta);
+        $("#table-deliveryDate span").text(json.toimituspvm);
+        $("#table-responsibility span").text(json.asiakkaanvastuulla);
     }
 
     function SetInfoTableInputValues(json) {
@@ -266,6 +273,13 @@ $(document).ready(function () {
         $("#table-maker input").val(json.tekija);
         $("#table-days input").val(json.paivienkesto);
         $("#table-calculationTime input").val(json.laskennankesto);
+        $("#table-email input").val(json.email);
+        $("#table-contactPerson input").val(json.kontaktihenkilo);
+        $("#table-houseFactory input").val(json.talotehdas);
+        $("#table-orderNumber input").val(json.ostotilausnro);
+        $("#table-price input").val(json.hinta);
+        $("#table-deliveryDate input").val(json.toimituspvm);
+        $("#table-responsibility input").val(json.asiakkaanvastuulla);
     }
 
     function GetInfoTableJSON() {
@@ -295,6 +309,13 @@ $(document).ready(function () {
         json.push({ 'maker': $("#table-maker input").val() });
         json.push({ 'days': $("#table-days input").val() });
         json.push({ 'calctime': $("#table-calculationTime input").val() });
+        json.push({ 'email': $("#table-email input").val() });
+        json.push({ 'contact': $("#table-contactPerson input").val() });
+        json.push({ 'factory': $("#table-houseFactory input").val() });
+        json.push({ 'order': $("#table-orderNumber input").val() });
+        json.push({ 'price': $("#table-price input").val() });
+        json.push({ 'deliverydate': $("#table-deliveryDate input").val() });
+        json.push({ 'responsibility': $("#table-responsibility input").val() });
   
         return json;
     }
@@ -347,7 +368,18 @@ $(document).ready(function () {
 
     $('#modal-update').click(function () {
         $('#order_and_quotation_modal').modal('hide');
-        console.log(GetInfoTableJSON());
+        var jsonData = GetInfoTableJSON();
+
+        $.ajax({
+            type: 'post',
+            url: '/php/scripts/update_table_row.php',
+            data: { json: jsonData },
+            success: function (data) {
+                $('#info_modal').modal('show');
+                $('#info_modal .modal-body').html(data);
+                ReloadFlexigrid();
+            }
+        });
     });
 
     $('#modal-delete').click(function () {

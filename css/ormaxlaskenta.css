@@ -1,3 +1,5 @@
+/* General */
+
 html, body {
     padding: 0px;
     height: 100%;
@@ -16,6 +18,10 @@ html, body {
     background-repeat: no-repeat;
     background-attachment: local;
     background-position: 97% 2%;
+}
+
+.button-menu-selected {
+    border:  2px solid black;
 }
 
 .content-area {
@@ -53,17 +59,14 @@ html, body {
     border: 1px solid #282828;
 }
 
+/* Pure */
+
 .pure-table thead {
     color: #fff !important;
 }
 
 .pure-table th {
     background-color: #9e9e9e;
-}
-
-.rowInfo {
-    margin: -3px 3px -3px -2px;
-    cursor: pointer;
 }
 
 .table-subheader {
@@ -90,6 +93,10 @@ html, body {
     width: 108px;
 }
 
+.table-accessories input {
+    width: 160px;
+}
+
 .table-condensed td {
     background-color: #fff;
     padding: 0.4em 1em;
@@ -111,6 +118,8 @@ html, body {
     font-weight: bold;
 }
 
+/* Modal */
+
 .wrap {
     white-space: initial !important;
 }
@@ -130,6 +139,13 @@ html, body {
     margin: 0px 20px;
 }
 
+/* Flexigrid */
+
+.rowInfo {
+    margin: -3px 3px -3px -2px;
+    cursor: pointer;
+}
+
 .sDiv {
     border-width: 0px !important;
 }
@@ -137,4 +153,38 @@ html, body {
 .sDiv2 {
     float: right !important;
     width: auto !important;
+    padding-bottom: 3px !important;
 }
+
+.sDiv2 input[type='date'] {
+    height: 14px;
+}
+
+.btnsearch {
+    display: inline-block;
+    padding: 3px 0px;
+    border: 1px solid #e9e9e9;
+    margin-top: -4px;
+}
+
+.btnsearch:hover {
+   border: 1px solid #ccc;
+}
+
+.btnsearch span {
+    cursor: pointer;
+    padding: 3px;
+    padding-left: 20px;
+    border: 1px solid #e9e9e9;
+    background: url(/img/flexigrid/magnifier.png) no-repeat;
+    background-attachment: local;
+    background-position: 10% 50%;
+}
+
+.btnsearch span:hover {
+	border-left: 1px solid #fff;
+	border-top: 1px solid #fff;
+	border-right: 1px solid #eee;
+	border-bottom: 1px solid #eee;
+}
+

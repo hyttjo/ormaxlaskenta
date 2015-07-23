@@ -22,10 +22,11 @@
     $city = isset($_GET["city"]) ? $_GET["city"] : "";
     $maker = isset($_GET["maker"]) ? $_GET["maker"] : "";
     $days = isset($_GET["days"]) ? $_GET["days"] : "";
-    $calculationTime = isset($_GET["calctime"]) ? $_GET["calctime"] : "";   
+    $calculationTime = isset($_GET["calctime"]) ? $_GET["calctime"] : "";
+    $responsibility = isset($_GET["responsibility"]) ? $_GET["responsibility"] : "";     
 ?>
         <form id="info-form" autocomplete="on">
-            <table id="info-table" class="pure-table table-condensed full-width centered border" data-id="" data-table="">
+            <table id="info-table" class="pure-table table-condensed full-width centered border table-order_and_quotation" data-id="" data-table="">
                 <thead>
                     <tr>
                         <th colspan="8" id="table-header">Ormax - RoofCalculator-määrälaskenta</th>
@@ -125,7 +126,7 @@
                     <tr>
                         <td class="table-label">Kattoturvatuotteet:</td>
                         <td id="table-safetyProducts" class="table-value">
-                            <input type="text" name="safetyProducts" maxlength="5" placeholder="Kyllä tai Ei">
+                            <input type="text" name="safetyProducts" maxlength="5" placeholder="Kyllä / Ei">
                             <span><?php echo $safetyProducts ?></span>
                         </td>
                         <td class="table-label">Katunumero:</td>
@@ -133,15 +134,18 @@
                             <input type="text" name="streetNo" maxlength="8">
                             <span><?php echo $streetNo ?></span>
                         </td>
-                        <td rowspan="5" class="table-label"></td>
-                        <td rowspan="5"></td>
-                        <td rowspan="5" class="table-label"></td>
-                        <td rowspan="5"></td>
+                        <td class="table-label"></td>
+                        <td></td>
+                        <td class="table-label">Määrät asiakkaan vastuulla:</td>
+                        <td id="table-responsibility" class="table-value">
+                            <input type="text" name="responsibility" maxlength="5" placeholder="Kyllä / Ei">
+                            <span><?php echo $responsibility ?></span>
+                        </td>
                     </tr>
                     <tr>
                         <td class="table-label">Sadevesituotteet:</td>
                         <td id="table-rainwaterProducts" class="table-value">
-                            <input type="text" name="rainwaterProducts" maxlength="5" placeholder="Kyllä tai Ei">
+                            <input type="text" name="rainwaterProducts" maxlength="5" placeholder="Kyllä / Ei">
                             <span><?php echo $rainwaterProducts ?></span>
                         </td>
                         <td class="table-label">Postinumero:</td>
@@ -149,6 +153,10 @@
                             <input type="text" name="postalCode" maxlength="5" pattern="^(0|[1-9][0-9]*)$">
                             <span><?php echo $postalCode ?></span>
                         </td>
+                        <td rowspan="4" class="table-label"></td>
+                        <td rowspan="4"></td>
+                        <td rowspan="4" class="table-label"></td>
+                        <td rowspan="4"></td>
                     </tr>
                     <tr>
                         <td class="table-label">Katon muoto:</td>
