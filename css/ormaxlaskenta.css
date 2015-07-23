@@ -55,8 +55,24 @@ html, body {
     margin-bottom: 20px;
 } 
 
+.margin-top-20px {
+    margin-top: 20px;
+} 
+
+.margin-bottom-20px {
+    margin-bottom: 20px;
+} 
+
+.padding-20px {
+    padding: 20px;
+}
+
 .border {
     border: 1px solid #282828;
+}
+
+.background-black {
+    background-color: #000;
 }
 
 /* Pure */
@@ -188,3 +204,11 @@ html, body {
 	border-bottom: 1px solid #eee;
 }
 
+#batch_edit_table th {
+    font-size: 90%;
+    color: #eeeeee;
+}
+
+#batch_edit_table input {
+    height: 14px;
+}

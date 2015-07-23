@@ -638,3 +638,7 @@ div.pGroup {
 .flexigrid .info {
     background: url(/img/flexigrid/info.png) no-repeat left;
 }
+
+.flexigrid .download {
+    background: url(/img/flexigrid/excel.png) no-repeat left;
+}

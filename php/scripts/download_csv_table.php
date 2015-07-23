@@ -5,18 +5,30 @@
         $table = $_GET['table'];
     }    
 
-    $filename = "$table.csv"; 
-    $filepath = "/tmp/$filename";
-    
-    ob_start('ob_gzhandler');
-    header('Content-type: application/octet-stream');
-    header("Content-Disposition: attachment; filename='$filename'");
+    $filename = "$table.csv";
 
-    $sql = "GRANT FILE ON *.* TO 'ormaxlaskenta'@'mysql1.gear.host'";
-    mysqli_query($conn, $sql) or die(mysqli_error($conn));
+    $result = $conn->query("SELECT * FROM $table");
 
-    $sql = "SELECT * INTO OUTFILE '$filepath' FIELDS TERMINATED BY ',' OPTIONALLY ENCLOSED BY '\"' LINES TERMINATED BY '\n' FROM $table";
-    $result_csv = mysqli_query($conn, $sql) or die(mysqli_error($conn));
+    $num_fields = mysqli_num_fields($result);
+    $headers = array();
 
-    readfile($result_csv);
+    while ($fieldinfo = mysqli_fetch_field($result)) {
+        $headers[] = $fieldinfo->name;
+    }
+
+    $fp = fopen('php://output', 'w');
+    fprintf($fp, chr(0xEF).chr(0xBB).chr(0xBF));
+
+    if ($fp && $result) {
+        header("Content-Disposition: attachment; filename='$filename'"); 
+        header('Pragma: no-cache');
+        header('Content-Type:  text/csv');
+
+        fputcsv($fp, $headers, ";");
+
+        while ($row = $result->fetch_array(MYSQLI_NUM)) {
+            fputcsv($fp, array_values($row), ";");
+        }
+        die;
+    }
 ?>

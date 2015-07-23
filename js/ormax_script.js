@@ -12,6 +12,10 @@ $(document).ready(function () {
         window.location = 'http://ormaxlaskenta.gear.host/php/accessories_quotations.php';
     });
 
+    $('#button_batch_edit').click(function () {
+        window.location = 'http://ormaxlaskenta.gear.host/php/batch_edit.php';
+    });
+
     show_orders_table();
 
     function show_orders_table() {
@@ -34,6 +38,8 @@ $(document).ready(function () {
             ],
             buttons: [
                 { name: 'Lisää', bclass: 'add', onpress: FlexiGridButtonCommand },
+                { separator: true },
+                { name: 'Lataa', bclass: 'download', onpress: FlexiGridButtonCommand },
                 { separator: true }
             ],
             searchitems: [
@@ -87,6 +93,8 @@ $(document).ready(function () {
             ],
             buttons: [
                 { name: 'Lisää', bclass: 'add', onpress: FlexiGridButtonCommand },
+                { separator: true },
+                { name: 'Lataa', bclass: 'download', onpress: FlexiGridButtonCommand },
                 { separator: true }
             ],
             searchitems: [
@@ -140,6 +148,8 @@ $(document).ready(function () {
             ],
             buttons: [
                 { name: 'Lisää', bclass: 'add', onpress: FlexiGridButtonCommand },
+                { separator: true },
+                { name: 'Lataa', bclass: 'download', onpress: FlexiGridButtonCommand },
                 { separator: true }
             ],
             searchitems: [
@@ -176,6 +186,8 @@ $(document).ready(function () {
     function FlexiGridButtonCommand(com, grid) {
         if (com == 'Lisää') {
             ShowAddNewModal();
+        } else if (com == 'Lataa') {
+            DownloadCSVTable();
         }
     }
 
@@ -198,6 +210,12 @@ $(document).ready(function () {
             }
         });
         $('#order_and_quotation_modal').modal('show');
+    }
+
+    function DownloadCSVTable() {
+        var table = GetTableFromType(GetTypeFromTableTitle());
+
+        window.location.href = "http://ormaxlaskenta.gear.host/php/scripts/download_csv_table.php?table=" + table;
     }
 
     function ShowAddNewModal() {
@@ -316,7 +334,7 @@ $(document).ready(function () {
         json.push({ 'price': $("#table-price input").val() });
         json.push({ 'deliverydate': $("#table-deliveryDate input").val() });
         json.push({ 'responsibility': $("#table-responsibility input").val() });
-  
+
         return json;
     }
 
@@ -448,7 +466,7 @@ $(document).ready(function () {
         } else if (type == 'Tilaus') {
             return "tilaukset";
         } else if (type == 'Lisätarviketarjous') {
-            return "lisätarviketarjoukset";
+            return "lisatarviketarjoukset";
         } else {
             return "";
         }
@@ -465,4 +483,53 @@ $(document).ready(function () {
 
         return yyyy + "-" + (mm[1] ? mm : "0" + mm[0]) + "-" + (dd[1] ? dd : "0" + dd[0]) + " " + (HH[1] ? HH : "0" + HH[0]) + ":" + (MM[1] ? MM : "0" + MM[0]) + ":" + (SS[1] ? SS : "0" + SS[0]);
     }
+
+    ToggleColumnSelectionOptions();
+
+    $('#table_selection').change(function () {
+        ToggleColumnSelectionOptions();
+    });
+
+    function ToggleColumnSelectionOptions() {
+        var value = $('#table_selection').val();
+
+        ShowAllColumnSelectionOptions();
+
+        if (value == "tarjoukset") {
+            $('#first_column_selection option:not(.option-tarjoukset)').hide();
+            $('#second_column_selection option:not(.option-tarjoukset)').hide();
+        } else if (value == "tilaukset") {
+            $('#first_column_selection option:not(.option-tilaukset)').hide();
+            $('#second_column_selection option:not(.option-tilaukset)').hide();
+        } else if (value == "lisatarviketarjoukset") {
+            $('#first_column_selection option:not(.option-lisatarviketarjoukset)').hide();
+            $('#second_column_selection option:not(.option-lisatarviketarjoukset)').hide();
+        }
+    }
+
+    function ShowAllColumnSelectionOptions() {
+        $('#first_column_selection option').show();
+        $('#second_column_selection option').show();
+    }
+
+    $('#batch_edit_table button').click(function () {
+        var table = $('#table_selection').val();
+        var first_column = $('#first_column_selection').val();
+        var logic = $('#logic_selection').val();
+        var first_input = $('#first_input').val();
+        var second_column = $('#second_column_selection').val();
+        var second_input = $('#second_input').val();
+ 
+
+        $.ajax({
+            type: "post",
+            url: "/php/scripts/batch_edit_db.php",
+            data: "table=" + table + "&first_column=" + first_column + "&logic=" + logic + "&first_input=" + first_input + "&second_column=" + second_column + "&second_input=" + second_input,
+            success: function (data) {
+                alert(data);
+                $('#info_modal').modal('show');
+                $('#info_modal .modal-body').html(data);
+            }
+        });
+    });
 });
