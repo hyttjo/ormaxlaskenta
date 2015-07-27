@@ -1,7 +1,6 @@
         <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
         <meta charset="utf-8" />
 
-        <link rel="stylesheet" href="/css/pure.css"/>
         <link rel="stylesheet" href="/css/bootstrap.css"/>
         <link rel="stylesheet" href="/css/flexigrid.css"/>
         <link rel="stylesheet" href="/css/ormaxlaskenta.css"/>

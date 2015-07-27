@@ -7,9 +7,9 @@
     $sql = "DELETE FROM $table WHERE id=$id";
 
     if ($conn->query($sql) === TRUE) {
-        echo "<div class='pure-button button-success wrap'>ID: $id poistettu taulusta $table onnistuneesti</div>";
+        echo "<div class='info-box background-green wrap'>ID: $id poistettu taulusta $table onnistuneesti</div>";
     } else {
-        echo "<div class='pure-button button-error wrap'>Virhe: " . $conn->error . "</div>";
+        echo "<div class='info-box background-red wrap'>Virhe: " . $conn->error . "</div>";
     }
 
     $conn->close();

@@ -10,7 +10,7 @@
     <body>
         <div class="div-container centered background-logo">
         <?php include "php/menu.php"; ?>
-            <div class="content-area full-width">
+            <div class="content-area full-width background-darkgradient">
         <?php
             if (isset($_GET["type"])) { 
                 if ($_GET["type"] == "Lisätarviketarjous") {

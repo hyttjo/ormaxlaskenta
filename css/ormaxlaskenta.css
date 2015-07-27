@@ -6,7 +6,7 @@ html, body {
 }
 
 .div-container {
-    max-width: 1030px;
+    width: 1030px;
     padding: 20px;
     border: 1px solid #808080;
     border-width: 0px 1px 1px 1px;
@@ -27,7 +27,6 @@ html, body {
 .content-area {
     margin: 0px -20px 0px -20px;
     padding:  20px;
-    background-color: #282828;
 }
 
 .full-width {
@@ -50,6 +49,10 @@ html, body {
     float: right;
 }
 
+.inline-block {
+    display: inline-block;
+}
+
 .margin-vertical-20px {
     margin-top: 20px;
     margin-bottom: 20px;
@@ -61,18 +64,65 @@ html, body {
 
 .margin-bottom-20px {
     margin-bottom: 20px;
-} 
+}
+
+.margin-right-20px {
+    margin-right: 20px;
+}  
 
 .padding-20px {
     padding: 20px;
+}
+
+.border-round-10px {
+    border-radius: 10px;
 }
 
 .border {
     border: 1px solid #282828;
 }
 
+.background-darkgradient {
+    background: rgba(33,33,33,1);
+    background: -moz-linear-gradient(top, rgba(33,33,33,1) 0%, rgba(92,92,92,1) 51%, rgba(33,33,33,1) 100%);
+    background: -webkit-gradient(left top, left bottom, color-stop(0%, rgba(33,33,33,1)), color-stop(51%, rgba(92,92,92,1)), color-stop(100%, rgba(33,33,33,1)));
+    background: -webkit-linear-gradient(top, rgba(33,33,33,1) 0%, rgba(92,92,92,1) 51%, rgba(33,33,33,1) 100%);
+    background: -o-linear-gradient(top, rgba(33,33,33,1) 0%, rgba(92,92,92,1) 51%, rgba(33,33,33,1) 100%);
+    background: -ms-linear-gradient(top, rgba(33,33,33,1) 0%, rgba(92,92,92,1) 51%, rgba(33,33,33,1) 100%);
+    background: linear-gradient(to bottom, rgba(33,33,33,1) 0%, rgba(92,92,92,1) 51%, rgba(33,33,33,1) 100%);
+    filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#212121', endColorstr='#212121', GradientType=0 );
+}
+
 .background-black {
     background-color: #000;
+}
+
+.background-grey {
+    background-color: #ccc;
+}
+
+.background-red {
+    background-color: #d9534f;
+}
+
+.background-green {
+    background-color: #5cb85c;
+}
+
+.font-size-90 {
+    font-size: 90%;
+}
+
+.font-bold {
+    font-weight: bold;
+}
+
+.info-box {
+    width: 100%;
+    padding: 5px 0px;
+    color: #fff;
+    text-align: center;
+    border-radius: 5px;
 }
 
 /* Pure */
@@ -202,6 +252,13 @@ html, body {
 	border-top: 1px solid #fff;
 	border-right: 1px solid #eee;
 	border-bottom: 1px solid #eee;
+}
+
+/* Batch Edit */
+
+.batchEdit-executeConfirmation {
+    display: none;
+    padding: 20px;
 }
 
 #batch_edit_table th {

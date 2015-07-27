@@ -76,9 +76,9 @@
     }
 
     if ($conn->query($sql) === TRUE) {
-        echo "<div class='pure-button button-success full-width margin-vertical-20px'>Lisätty tietokantaan onnistuneesti</div>";
+        echo "<div class='info-box background-green margin-vertical-20px'>Lisätty tietokantaan onnistuneesti</div>";
     } else {
-        echo "<div class='pure-button button-error full-width margin-vertical-20px'>Virhe: " . $conn->error . "</div>";
+        echo "<div class='info-box background-red margin-vertical-20px'>Virhe: " . $conn->error . "</div>";
     }
 
     $conn->close();

@@ -513,23 +513,39 @@ $(document).ready(function () {
     }
 
     $('#batch_edit_table button').click(function () {
+        $('.batchEdit-executeConfirmation').show();
+        ExecuteBatchEdit("false");
+    });
+
+    $('#batchEdit-executeConfirmation').click(function () {
+        ExecuteBatchEdit("true");
+        $('.batchEdit-executeConfirmation').hide();
+    });
+
+    $('#batchEdit-executeCancel').click(function () {
+        $('.batchEdit-executeConfirmation').hide();
+    });
+
+    function ExecuteBatchEdit(execute) {
         var table = $('#table_selection').val();
         var first_column = $('#first_column_selection').val();
         var logic = $('#logic_selection').val();
         var first_input = $('#first_input').val();
         var second_column = $('#second_column_selection').val();
         var second_input = $('#second_input').val();
- 
 
         $.ajax({
             type: "post",
             url: "/php/scripts/batch_edit_db.php",
-            data: "table=" + table + "&first_column=" + first_column + "&logic=" + logic + "&first_input=" + first_input + "&second_column=" + second_column + "&second_input=" + second_input,
+            data: "execute=" + execute + "&table=" + table + "&first_column=" + first_column + "&logic=" + logic + "&first_input=" + first_input + "&second_column=" + second_column + "&second_input=" + second_input,
             success: function (data) {
-                alert(data);
-                $('#info_modal').modal('show');
-                $('#info_modal .modal-body').html(data);
+                if (execute == "true") {
+                    $('#info_modal').modal('show');
+                    $('#info_modal .modal-body').html(data);
+                } else {
+                    $('.batchEdit-executeInfo').html(data);
+                }
             }
         });
-    });
+    }
 });
