@@ -63,7 +63,7 @@ $(document).ready(function () {
             title: "Tilaukset",
             useRp: true,
             rp: 30,
-            showTableToggleBtn: false,
+            showToggleBtn: false,
             resizable: false,
             width: 1030,
             height: 'auto',
@@ -118,7 +118,7 @@ $(document).ready(function () {
             title: "Tarjoukset",
             useRp: true,
             rp: 30,
-            showTableToggleBtn: false,
+            showToggleBtn: false,
             resizable: false,
             width: 1030,
             height: 'auto',
@@ -173,13 +173,37 @@ $(document).ready(function () {
             title: "Lisätarviketarjoukset",
             useRp: true,
             rp: 30,
-            showTableToggleBtn: false,
+            showToggleBtn: false,
             resizable: false,
             width: 1030,
             height: 'auto',
             singleSelect: true
         });
     }
+
+    $("input[name='startdate']").datepicker({
+        dateFormat: 'yy-mm-dd',
+        shoAnim: 'slideDown',
+        showButtonPanel: true,
+        currentText: 'Tänään',
+        closeText: 'Sulje',
+        changeMonth: true,
+        changeYear: true,
+        dayNamesMin: ["Ma", "Ti", "Ke", "To", "Pe", "La", "Su"],
+        monthNamesShort: ["Tammi", "Helmi", "Maalis", "Huhti", "Touko", "Kesä", "Heinä", "Elo", "Syys", "Loka", "Marras", "Joulu"]
+    });
+
+    $("input[name='enddate']").datepicker({
+        dateFormat: 'yy-mm-dd',
+        shoAnim: 'slideDown',
+        showButtonPanel: true,
+        currentText: 'Tänään',
+        closeText: 'Sulje',
+        changeMonth: true,
+        changeYear: true,
+        dayNamesMin: ["Ma", "Ti", "Ke", "To", "Pe", "La", "Su"],
+        monthNamesShort: ["Tammi", "Helmi", "Maalis", "Huhti", "Touko", "Kesä", "Heinä", "Elo", "Syys", "Loka", "Marras", "Joulu"]
+    });
 
     $('.sDiv').css('display', 'block');
 
@@ -512,6 +536,11 @@ $(document).ready(function () {
         $('#second_column_selection option').show();
     }
 
+    $('#first_column_selection').change(function () {
+        var value = $(this).val();
+        $('#second_column_selection').val(value);
+    });
+
     $('#batch_edit_table button').click(function () {
         $('.batchEdit-executeConfirmation').show();
         ExecuteBatchEdit("false");
@@ -548,4 +577,48 @@ $(document).ready(function () {
             }
         });
     }
+
+    $("#first_input").autocomplete({
+        source: function (request, response) {
+            var table = $('#table_selection').val();
+            var column = $('#first_column_selection').val();
+
+            $.ajax({
+                url: "/php/scripts/autocomplete.php",
+                data: { term: request.term, table: table, column: column },
+                dataType: "json",
+                success: function (data) {
+                    response($.map(data.data, function (item) {
+                        return {
+                            label: item.result,
+                            value: item.result
+                        }
+                    }));
+                }
+            });
+        },
+        minLength: 2
+    });
+
+    $("input.qsbox").autocomplete({
+        source: function (request, response) {
+            var table = GetTableFromType(GetTypeFromTableTitle());
+            var column = $("select[name='qtype']").val();
+
+            $.ajax({
+                url: "/php/scripts/autocomplete.php",
+                data: { term: request.term, table: table, column: column },
+                dataType: "json",
+                success: function (data) {
+                    response($.map(data.data, function (item) {
+                        return {
+                            label: item.result,
+                            value: item.result
+                        }
+                    }));
+                }
+            });
+        },
+        minLength: 2
+    });
 });

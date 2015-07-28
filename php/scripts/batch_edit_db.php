@@ -9,17 +9,23 @@
     $second_column = $_POST["second_column"];
     $second_input = $_POST["second_input"];
 
-    if ($logic == "is") $logic = "=";
-    if ($logic == "not") $logic = "!=";
-    if ($logic == "include") $logic = "LIKE";
-    if ($logic == "replace") $logic = "REPLACE";
+    $where = '';
 
-    $query = "UPDATE $table SET $second_column = '$second_input' WHERE $first_column $logic '$first_input'";
+    if ($logic == "is") $where = "WHERE $first_column = '$first_input'";
+    if ($logic == "not") $where = "WHERE $first_column != '$first_input'";
+    if ($logic == "include") $where = "WHERE $first_column LIKE '%$first_input%'";
+    if ($logic == "null") $where = "WHERE $first_column IS NULL OR $first_column = ''";
+
+    $set = "SET $second_column = '$second_input'";
+
+    if ($second_input == "NULL") $set = "SET $second_column = NULL";
+
+    $query = "UPDATE $table $set $where";
     
     echo $query;
     
     if ($execute == "false") {
-        $query = "SELECT * FROM $table WHERE $first_column $logic '$first_input'";
+        $query = "SELECT * FROM $table $where";
     }
 
     if ($result = $conn->query($query)) {

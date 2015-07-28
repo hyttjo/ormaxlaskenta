@@ -55,6 +55,7 @@
                                         <option value="is">ON</option>
                                         <option value="not">EI OLE</option>
                                         <option value="include">SISÄLTÄÄ</option>
+                                        <option value="null">ON TYHJÄ</option>
                                     </select>
 							    </td>
                                 <td>

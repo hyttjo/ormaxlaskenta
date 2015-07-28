@@ -83,14 +83,14 @@ html, body {
 }
 
 .background-darkgradient {
-    background: rgba(33,33,33,1);
-    background: -moz-linear-gradient(top, rgba(33,33,33,1) 0%, rgba(92,92,92,1) 51%, rgba(33,33,33,1) 100%);
-    background: -webkit-gradient(left top, left bottom, color-stop(0%, rgba(33,33,33,1)), color-stop(51%, rgba(92,92,92,1)), color-stop(100%, rgba(33,33,33,1)));
-    background: -webkit-linear-gradient(top, rgba(33,33,33,1) 0%, rgba(92,92,92,1) 51%, rgba(33,33,33,1) 100%);
-    background: -o-linear-gradient(top, rgba(33,33,33,1) 0%, rgba(92,92,92,1) 51%, rgba(33,33,33,1) 100%);
-    background: -ms-linear-gradient(top, rgba(33,33,33,1) 0%, rgba(92,92,92,1) 51%, rgba(33,33,33,1) 100%);
-    background: linear-gradient(to bottom, rgba(33,33,33,1) 0%, rgba(92,92,92,1) 51%, rgba(33,33,33,1) 100%);
-    filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#212121', endColorstr='#212121', GradientType=0 );
+    background: rgba(36,36,36,1);
+    background: -moz-linear-gradient(top, rgba(36,36,36,1) 0%, rgba(92,92,92,1) 51%, rgba(36,36,36,1) 100%);
+    background: -webkit-gradient(left top, left bottom, color-stop(0%, rgba(36,36,36,1)), color-stop(51%, rgba(92,92,92,1)), color-stop(100%, rgba(36,36,36,1)));
+    background: -webkit-linear-gradient(top, rgba(36,36,36,1) 0%, rgba(92,92,92,1) 51%, rgba(36,36,36,1) 100%);
+    background: -o-linear-gradient(top, rgba(36,36,36,1) 0%, rgba(92,92,92,1) 51%, rgba(36,36,36,1) 100%);
+    background: -ms-linear-gradient(top, rgba(36,36,36,1) 0%, rgba(92,92,92,1) 51%, rgba(36,36,36,1) 100%);
+    background: linear-gradient(to bottom, rgba(36,36,36,1) 0%, rgba(92,92,92,1) 51%, rgba(36,36,36,1) 100%);
+    filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#242424', endColorstr='#242424', GradientType=0 );
 }
 
 .background-black {
@@ -268,4 +268,21 @@ html, body {
 
 #batch_edit_table input {
     height: 14px;
+}
+
+/* jQuery-UI */
+
+.ui-datepicker {
+    font-size: 90%;
+}
+
+.ui-datepicker select {
+    color: #000;
+}
+
+.ui-autocomplete {
+    max-height: 600px;
+    overflow-y: auto;
+    overflow-x: hidden;
+    font-size: 90%;
 }
