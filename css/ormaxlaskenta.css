@@ -82,6 +82,10 @@ html, body {
     border: 1px solid #282828;
 }
 
+.border-grey {
+    border: 1px solid #555;
+}
+
 .background-darkgradient {
     background: rgba(36,36,36,1);
     background: -moz-linear-gradient(top, rgba(36,36,36,1) 0%, rgba(92,92,92,1) 51%, rgba(36,36,36,1) 100%);
@@ -125,7 +129,7 @@ html, body {
     border-radius: 5px;
 }
 
-/* Pure */
+/* Calculation Info Table */
 
 .pure-table thead {
     color: #fff !important;
@@ -285,4 +289,46 @@ html, body {
     overflow-y: auto;
     overflow-x: hidden;
     font-size: 90%;
+    z-index: 99999;
+}
+
+/* Boostrap */
+
+.nav-tabs {
+    border-bottom-width: 0px; 
+}
+
+.nav-tabs > li.active > a {
+    font-weight: bold;
+    color: #A02D00 !important;
+}
+
+.nav-tabs > li > a {
+    background-color: #cdcdcd;
+    color: #555;
+    border-radius: 4px 4px 0 0;
+    border-width: 0px;
+}
+
+.tab-content {
+    background-color: #fff;
+    padding: 20px;
+    border-top-right-radius: 10px; 
+    border-bottom-left-radius: 10px; 
+    border-bottom-right-radius: 10px;     
+}
+
+/* Charts */
+
+#map-chart-tab, #timeline-chart-tab, #tileandcolour-chart-tab {
+    padding:  0px 100px;
+}
+
+#tileandcolour-chart-tab .first_chart_image {
+    margin:  20px 0px;
+}
+
+.first_chart_image, .second_chart_image {
+    margin: 20px 50px;
+    max-height: 480px;
 }

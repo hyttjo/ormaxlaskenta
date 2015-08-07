@@ -16,6 +16,10 @@ $(document).ready(function () {
         window.location = 'http://ormaxlaskenta.gear.host/php/batch_edit.php';
     });
 
+    $('#button_charts').click(function () {
+        window.location = 'http://ormaxlaskenta.gear.host/php/charts.php';
+    });
+
     show_orders_table();
 
     function show_orders_table() {
@@ -508,37 +512,45 @@ $(document).ready(function () {
         return yyyy + "-" + (mm[1] ? mm : "0" + mm[0]) + "-" + (dd[1] ? dd : "0" + dd[0]) + " " + (HH[1] ? HH : "0" + HH[0]) + ":" + (MM[1] ? MM : "0" + MM[0]) + ":" + (SS[1] ? SS : "0" + SS[0]);
     }
 
-    ToggleColumnSelectionOptions();
+    ToggleColumnSelectionOptions($('#batch_edit_table'));
+    ToggleColumnSelectionOptions($('#map-chart-tab'));
 
-    $('#table_selection').change(function () {
-        ToggleColumnSelectionOptions();
+    $('a[data-toggle="tab"]').on('shown.bs.tab', function (e) {
+        ToggleColumnSelectionOptions($(e.target).attr('href'));
     });
 
-    function ToggleColumnSelectionOptions() {
-        var value = $('#table_selection').val();
+    $('#batch_edit_table .table_selection').change(function () { ToggleColumnSelectionOptions($('#batch_edit_table')); });
+    $('#map-chart-tab .table_selection').change(function () { ToggleColumnSelectionOptions($('#map-chart-tab')); });
+    $('#timeline-chart-tab .table_selection').change(function () { ToggleColumnSelectionOptions($('#timeline-chart-tab')); });
+    $('#tileandcolour-chart-tab .table_selection').change(function () { ToggleColumnSelectionOptions($('#tileandcolour-chart-tab')); });
 
-        ShowAllColumnSelectionOptions();
+    function ToggleColumnSelectionOptions(parent) {
+        if (parent.length) {
+            var value = $(parent).find('.table_selection').val();
+            //alert($(parent).find('.first_column_selection').val());
+            ShowAllColumnSelectionOptions();
 
-        if (value == "tarjoukset") {
-            $('#first_column_selection option:not(.option-tarjoukset)').hide();
-            $('#second_column_selection option:not(.option-tarjoukset)').hide();
-        } else if (value == "tilaukset") {
-            $('#first_column_selection option:not(.option-tilaukset)').hide();
-            $('#second_column_selection option:not(.option-tilaukset)').hide();
-        } else if (value == "lisatarviketarjoukset") {
-            $('#first_column_selection option:not(.option-lisatarviketarjoukset)').hide();
-            $('#second_column_selection option:not(.option-lisatarviketarjoukset)').hide();
+            if (value == "tarjoukset") {
+                $(parent).find('.first_column_selection option:not(.option-tarjoukset)').hide();
+                $(parent).find('.second_column_selection option:not(.option-tarjoukset)').hide();
+            } else if (value == "tilaukset") {
+                $(parent).find('.first_column_selection option:not(.option-tilaukset)').hide();
+                $(parent).find('.second_column_selection option:not(.option-tilaukset)').hide();
+            } else if (value == "lisatarviketarjoukset") {
+                $(parent).find('.first_column_selection option:not(.option-lisatarviketarjoukset)').hide();
+                $(parent).find('.second_column_selection option:not(.option-lisatarviketarjoukset)').hide();
+            }
         }
     }
 
     function ShowAllColumnSelectionOptions() {
-        $('#first_column_selection option').show();
-        $('#second_column_selection option').show();
+        $('.first_column_selection option').show();
+        $('.second_column_selection option').show();
     }
 
-    $('#first_column_selection').change(function () {
+    $('.first_column_selection').change(function () {
         var value = $(this).val();
-        $('#second_column_selection').val(value);
+        $('.second_column_selection').val(value);
     });
 
     $('#batch_edit_table button').click(function () {
@@ -556,12 +568,12 @@ $(document).ready(function () {
     });
 
     function ExecuteBatchEdit(execute) {
-        var table = $('#table_selection').val();
-        var first_column = $('#first_column_selection').val();
-        var logic = $('#logic_selection').val();
-        var first_input = $('#first_input').val();
-        var second_column = $('#second_column_selection').val();
-        var second_input = $('#second_input').val();
+        var table = $('.table_selection').val();
+        var first_column = $('.first_column_selection').val();
+        var logic = $('.logic_selection').val();
+        var first_input = $('.first_input').val();
+        var second_column = $('.second_column_selection').val();
+        var second_input = $('.second_input').val();
 
         $.ajax({
             type: "post",
@@ -578,10 +590,10 @@ $(document).ready(function () {
         });
     }
 
-    $("#first_input").autocomplete({
+    $(".first_input").autocomplete({
         source: function (request, response) {
-            var table = $('#table_selection').val();
-            var column = $('#first_column_selection').val();
+            var table = $('.table_selection').val();
+            var column = $('.first_column_selection').val();
 
             $.ajax({
                 url: "/php/scripts/autocomplete.php",
@@ -597,7 +609,9 @@ $(document).ready(function () {
                 }
             });
         },
-        minLength: 2
+        minLength: 0
+    }).focus(function () {
+        $(this).autocomplete("search", $(this).val());
     });
 
     $("input.qsbox").autocomplete({
@@ -621,4 +635,120 @@ $(document).ready(function () {
         },
         minLength: 2
     });
+
+    $('#info-form input[data-col]').each(function () {
+        var table = GetTableFromType(GetTypeFromTableTitle());
+        var column = $(this).data('col');
+
+        $(this).autocomplete({
+            source: function (request, response) {
+                $.ajax({
+                    url: "/php/scripts/autocomplete.php",
+                    data: { term: request.term, table: table, column: column },
+                    dataType: "json",
+                    success: function (data) {
+                        response($.map(data.data, function (item) {
+                            return {
+                                label: item.result,
+                                value: item.result
+                            }
+                        }));
+                    }
+                });
+            },
+            minLength: 0
+        }).focus(function () {
+            $(this).autocomplete("search", $(this).val());
+        });
+    });
+
+    ShowMapCharts();
+    ShowTileAndColourChart();
+
+    $('#map-chart-tab #chart-filter-execute').click(function () {
+        ShowMapCharts();
+    });
+
+    function ShowMapCharts() {
+        var table = $('#map-chart-tab .table_selection').val();
+        var column = $('#map-chart-tab .first_column_selection').val();
+        var logic = $('#map-chart-tab .logic_selection').val();
+        var input = $('#map-chart-tab .first_input').val();
+
+        $('#map-chart-tab .first_chart_image').attr('src', '/php/scripts/statistics/statistics_postal_area_chart.php?table=' + table + '&column=' + column + '&logic=' + logic + '&input=' + input);
+        $('#map-chart-tab .second_chart_image').attr('src', '/php/scripts/statistics/statistics_postal_area_map.php?table=' + table + '&column=' + column + '&logic=' + logic + '&input=' + input);
+    }
+
+    $('#timeline-chart-tab #chart-filter-execute').click(function () {
+        ShowTimelineChart();
+    });
+
+    function ShowTimelineChart() {
+        var table = $('#timeline-chart-tab .table_selection').val();
+        var column = $('#timeline-chart-tab .first_column_selection').val();
+        var logic = $('#timeline-chart-tab .logic_selection').val();
+        var input = $('#timeline-chart-tab .first_input').val();
+
+        $('#timeline-chart-tab .first_chart_image').attr('src', '/php/scripts/statistics/statistics_timeline_chart.php?table=' + table + '&column=' + column + '&logic=' + logic + '&input=' + input);
+    }
+
+    $('#tileandcolour-chart-tab #chart-filter-execute').click(function () {
+        ShowTileAndColourChart();
+    });
+
+    function ShowTileAndColourChart() {
+        var table = $('#tileandcolour-chart-tab .table_selection').val();
+        var column = $('#tileandcolour-chart-tab .first_column_selection').val();
+        var logic = $('#tileandcolour-chart-tab .logic_selection').val();
+        var input = $('#tileandcolour-chart-tab .first_input').val();
+
+        $('#tileandcolour-chart-tab .first_chart_image').attr('src', '/php/scripts/statistics/statistics_tile_and_colour_chart.php?table=' + table + '&column=' + column + '&logic=' + logic + '&input=' + input);
+    }
+
+    InitializeChartsAutocomplete($('#map-chart-tab'));
+    InitializeChartsAutocomplete($('#timeline-chart-tab'));
+    InitializeChartsAutocomplete($('#tileandcolour-chart-tab'));
+
+    function InitializeChartsAutocomplete(tab) {
+        $(tab).find(".first_input").autocomplete({
+            source: function (request, response) {
+                var table = $(tab).find('.table_selection').val();
+                var column = $(tab).find('.first_column_selection').val();
+
+                $.ajax({
+                    url: "/php/scripts/autocomplete.php",
+                    data: { term: request.term, table: table, column: column },
+                    dataType: "json",
+                    success: function (data) {
+                        response($.map(data.data, function (item) {
+                            return {
+                                label: item.result,
+                                value: item.result
+                            }
+                        }));
+                    }
+                });
+            },
+            minLength: 0
+        }).focus(function () {
+            $(this).autocomplete("search", $(this).val());
+        });
+    }
+
+    $('#batch_edit_table .logic_selection').change(function () { ToggleInputReadOnlyByLogicChange($('#batch_edit_table')); });
+    $('#map-chart-tab .logic_selection').change(function () { ToggleInputReadOnlyByLogicChange($('#map-chart-tab')); });
+    $('#timeline-chart-tab .logic_selection').change(function () { ToggleInputReadOnlyByLogicChange($('#timeline-chart-tab')); });
+    $('#tileandcolour-chart-tab .logic_selection').change(function () { ToggleInputReadOnlyByLogicChange($('#tileandcolour-chart-tab')); });
+
+
+    function ToggleInputReadOnlyByLogicChange(parent) {
+        if ($(parent).find('.logic_selection').val() == 'null') { 
+            $(parent).find('.first_input').prop('readonly', true); 
+            $(parent).find('.first_input').css('background-color', '#ccc');
+        } else {
+            $(parent).find('.first_input').prop('readonly', false); 
+            $(parent).find('.first_input').css('background-color', '#fff');
+        }
+    }
+ 
 });

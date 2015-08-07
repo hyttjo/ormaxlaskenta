@@ -1,4 +1,4 @@
-                    <div class="background-black padding-20px border-round-10px">
+                    <div class="background-black padding-20px border-round-10px border-grey">
                         <table id="batch_edit_table" class="full-width">
                             <tr>
                                 <th>Taulukko</th>
@@ -10,14 +10,14 @@
                             </tr>
                             <tr>
                                 <td>
-								    <select id="table_selection">
+								    <select class="table_selection">
                                         <option value="tarjoukset">Tarjoukset</option>
                                         <option value="tilaukset">Tilaukset</option>
                                         <option value="lisatarviketarjoukset">Lisätarviketarjoukset</option>
                                     </select>
 							    </td>
                                 <td>
-								    <select id="first_column_selection">
+								    <select class="first_column_selection">
                                         <option value="id" class="option-tarjoukset option-tilaukset option-lisatarviketarjoukset">ID</option>
                                         <option value="pvm" class="option-tarjoukset option-tilaukset option-lisatarviketarjoukset">Pvm</option>
                                         <option value="tiili" class="option-tarjoukset option-tilaukset option-lisatarviketarjoukset" selected>Tiili</option>
@@ -51,7 +51,7 @@
                                     </select>
 							    </td>
                                 <td>
-								    <select id="logic_selection">
+								    <select class="logic_selection">
                                         <option value="is">ON</option>
                                         <option value="not">EI OLE</option>
                                         <option value="include">SISÄLTÄÄ</option>
@@ -59,10 +59,10 @@
                                     </select>
 							    </td>
                                 <td>
-								    <input id="first_input" type="text"></input>
+								    <input class="first_input" type="text"></input>
 							    </td>
                                 <td>
-								    <select id="second_column_selection">
+								    <select class="second_column_selection">
                                         <option value="id" class="option-tarjoukset option-tilaukset option-lisatarviketarjoukset">ID</option>
                                         <option value="pvm" class="option-tarjoukset option-tilaukset option-lisatarviketarjoukset">Pvm</option>
                                         <option value="tiili" class="option-tarjoukset option-tilaukset option-lisatarviketarjoukset" selected>Tiili</option>
@@ -96,7 +96,7 @@
                                     </select>
 							    </td>
                                 <td>
-								    <input id="second_input" type="text"></input>
+								    <input class="second_input" type="text"></input>
 							    </td>
                                 <tr>
 								    <td colspan="6">

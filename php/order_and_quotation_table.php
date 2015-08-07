@@ -25,7 +25,7 @@
     $calculationTime = isset($_GET["calctime"]) ? $_GET["calctime"] : "";
     $responsibility = isset($_GET["responsibility"]) ? $_GET["responsibility"] : "";     
 ?>
-        <form id="info-form" autocomplete="on">
+        <form id="info-form" autocomplete="off">
             <table id="info-table" class="pure-table table-condensed full-width centered border table-order_and_quotation" data-id="" data-table="">
                 <thead>
                     <tr>
@@ -46,17 +46,17 @@
                         </td>
                         <td class="table-label">Nimi:</td>
                         <td id="table-name" class="table-value">
-                            <input type="text" name="name" maxlength="50">
+                            <input type="text" name="name" maxlength="50" data-col="nimi">
                             <span><?php echo $name ?></span>
                         </td>
                         <td class="table-label">Asiakasryhmä:</td>
                         <td id="table-customerGroup" class="table-value">
-                            <input type="text" name="customerGroup" maxlength="20">
+                            <input type="text" name="customerGroup" maxlength="20" data-col="asiakasryhma">
                             <span><?php echo $customerGroup ?></span>
                         </td>
                         <td class="table-label">Tekijä:</td>
                         <td id="table-maker" class="table-value">
-                            <input type="text" name="maker" maxlength="20" placeholder="Esim. JH">
+                            <input type="text" name="maker" maxlength="20" placeholder="Esim. JH" data-col="tekija">
                             <span><?php echo $maker ?></span>
                         </td>
                     </tr>
@@ -73,7 +73,7 @@
                         </td>
                         <td class="table-label">Asiakasnumero:</td>
                         <td id="table-soldNumber" class="table-value">
-                            <input type="number" name="soldNumber"  maxlength="5">
+                            <input type="number" name="soldNumber"  maxlength="5" data-col="asiakasnumero">
                             <span><?php echo $soldNumber ?></span>
                         </td>
                         <td class="table-label">Viite:</td>
@@ -85,17 +85,17 @@
                     <tr>
                         <td class="table-label">Tiili:</td>
                         <td id="table-tile" class="table-value">
-                            <input type="text" name="tile" maxlength="20">
+                            <input type="text" name="tile" maxlength="20" data-col="tiili">
                             <span><?php echo $tile ?></span>
                         </td>
                         <td class="table-label">Toimitustapa:</td>
                         <td id="table-deliveryMode" class="table-value">
-                            <input type="text" name="deliveryMode" maxlength="8" placeholder="Nosto/Nouto/Toimitus">
+                            <input type="text" name="deliveryMode" maxlength="8" placeholder="Nosto/Nouto/Toimitus" data-col="toimitustapa">
                             <span><?php echo $deliveryMode ?></span>
                         </td>
                         <td class="table-label">Asiakasnimi:</td>
                         <td id="table-soldName" class="table-value">
-                            <input type="text" name="soldName" maxlength="30">
+                            <input type="text" name="soldName" maxlength="30" data-col="asiakasnimi">
                             <span><?php echo $soldName ?></span>
                         </td>
                         <td class="table-label">Laskennan<br>päivien määrä:</td>
@@ -107,12 +107,12 @@
                     <tr>
                         <td class="table-label">Väri:</td>
                         <td id="table-colour" class="table-value">
-                            <input type="text" name="colour" maxlength="30">
+                            <input type="text" name="colour" maxlength="30" data-col="vari">
                             <span><?php echo $colour ?></span>
                         </td>
                         <td class="table-label">Katunimi:</td>
                         <td id="table-street" class="table-value">
-                            <input type="text" name="street" maxlength="30">
+                            <input type="text" name="street" maxlength="30" data-col="katunimi">
                             <span><?php echo $street ?></span>
                         </td>
                         <td class="table-label"></td>
@@ -126,7 +126,7 @@
                     <tr>
                         <td class="table-label">Kattoturvatuotteet:</td>
                         <td id="table-safetyProducts" class="table-value">
-                            <input type="text" name="safetyProducts" maxlength="5" placeholder="Kyllä / Ei">
+                            <input type="text" name="safetyProducts" maxlength="5" placeholder="Kyllä / Ei" data-col="kattoturva">
                             <span><?php echo $safetyProducts ?></span>
                         </td>
                         <td class="table-label">Katunumero:</td>
@@ -138,19 +138,19 @@
                         <td></td>
                         <td class="table-label">Määrät asiakkaan vastuulla:</td>
                         <td id="table-responsibility" class="table-value">
-                            <input type="text" name="responsibility" maxlength="5" placeholder="Kyllä / Ei">
+                            <input type="text" name="responsibility" maxlength="5" placeholder="Kyllä / Ei" data-col="asiakkaanvastuulla">
                             <span><?php echo $responsibility ?></span>
                         </td>
                     </tr>
                     <tr>
                         <td class="table-label">Sadevesituotteet:</td>
                         <td id="table-rainwaterProducts" class="table-value">
-                            <input type="text" name="rainwaterProducts" maxlength="5" placeholder="Kyllä / Ei">
+                            <input type="text" name="rainwaterProducts" maxlength="5" placeholder="Kyllä / Ei" data-col="sadevesi">
                             <span><?php echo $rainwaterProducts ?></span>
                         </td>
                         <td class="table-label">Postinumero:</td>
                         <td id="table-postalCode" class="table-value">
-                            <input type="text" name="postalCode" maxlength="5" pattern="^(0|[1-9][0-9]*)$">
+                            <input type="text" name="postalCode" maxlength="5" pattern="^(0|[1-9][0-9]*)$" data-col="postinumero">
                             <span><?php echo $postalCode ?></span>
                         </td>
                         <td rowspan="4" class="table-label"></td>
@@ -161,12 +161,12 @@
                     <tr>
                         <td class="table-label">Katon muoto:</td>
                         <td id="table-roofShape" class="table-value">
-                            <input type="text" name="roofShape" maxlength="20" placeholder="Esim. Harjakatto">
+                            <input type="text" name="roofShape" maxlength="20" placeholder="Esim. Harjakatto" data-col="muoto">
                             <span><?php echo $roofShape ?></span>
                         </td>
                         <td class="table-label">Kunta:</td>
                         <td id="table-city" class="table-value">
-                            <input type="text" name="city" maxlength="20">
+                            <input type="text" name="city" maxlength="20" data-col="kaupunki">
                             <span><?php echo $city ?></span>
                         </td>
                     </tr>
@@ -182,7 +182,7 @@
                     <tr>
                         <td class="table-label">Päätytuotteet:</td>
                         <td id="table-vergeSolution" class="table-value">
-                            <input type="text" name="vergeSolution" maxlength="11" placeholder="Esim. Päätypelti">
+                            <input type="text" name="vergeSolution" maxlength="11" placeholder="Esim. Päätypelti" data-col="paaty">
                             <span><?php echo $vergeSolution ?></span>
                         </td>
                     </tr>
