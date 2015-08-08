@@ -49,6 +49,10 @@ html, body {
     float: right;
 }
 
+.clear {
+    clear: both;
+}
+
 .inline-block {
     display: inline-block;
 }
@@ -320,8 +324,12 @@ html, body {
 
 /* Charts */
 
-#map-chart-tab, #timeline-chart-tab, #tileandcolour-chart-tab {
+#map-chart-tab, #tileandcolour-chart-tab {
     padding:  0px 100px;
+}
+
+#timeline-chart-tab {
+    padding: 0px 75px;
 }
 
 #tileandcolour-chart-tab .first_chart_image {
@@ -331,4 +339,24 @@ html, body {
 .first_chart_image, .second_chart_image {
     margin: 20px 50px;
     max-height: 480px;
+}
+
+#timeline-chart-tab .first_chart_image {
+    margin: 0px;
+}
+
+.timeline-chart-content {
+    max-height: 500px;
+}
+
+.year-selection {
+    margin: 100px 0px;
+    max-width: 50px;
+}
+
+.year-selection > * {
+    vertical-align: top;
+}
+.year-selection input {
+    margin-right: 5px;
 }

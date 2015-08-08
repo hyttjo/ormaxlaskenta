@@ -28,7 +28,11 @@
                     <div id="timeline-chart-tab" class="tab-pane fade">
                         <h4>Aikajana</h4>
                         <?php include "charts_filter_selection.php"; ?>
-                        <img class="first_chart_image" src="/img/blank.png" alt="first image"></img>
+                        <div class="timeline-chart-content margin-vertical-20px">
+                            <img class="first_chart_image left" src="/img/blank.png" alt="first image"></img>
+                            <?php include "charts_year_selection.php"; ?> 
+                            <div class="clear"></div>
+                        </div>
                     </div>
                     <div id="tileandcolour-chart-tab" class="tab-pane fade">
                         <h4>Tiili / Väri</h4>

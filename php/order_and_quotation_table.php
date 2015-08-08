@@ -26,7 +26,7 @@
     $responsibility = isset($_GET["responsibility"]) ? $_GET["responsibility"] : "";     
 ?>
         <form id="info-form" autocomplete="off">
-            <table id="info-table" class="pure-table table-condensed full-width centered border table-order_and_quotation" data-id="" data-table="">
+            <table id="info-table" class="pure-table table-condensed full-width centered border table-order_and_quotation" data-id="" data-table="<?php echo $type; ?>">
                 <thead>
                     <tr>
                         <th colspan="8" id="table-header">Ormax - RoofCalculator-määrälaskenta</th>

@@ -1,9 +1,9 @@
 <?php
+    include("statistics_tile_and_colour.php");    
+
     include("pChart/class/pData.class.php");
     include("pChart/class/pDraw.class.php");
     include("pChart/class/pImage.class.php");
-
-    include("statistics_tile_and_colour.php");
 
     $width = 760;
     $height = 480;

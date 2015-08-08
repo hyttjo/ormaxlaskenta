@@ -185,29 +185,22 @@ $(document).ready(function () {
         });
     }
 
-    $("input[name='startdate']").datepicker({
-        dateFormat: 'yy-mm-dd',
-        shoAnim: 'slideDown',
-        showButtonPanel: true,
-        currentText: 'Tänään',
-        closeText: 'Sulje',
-        changeMonth: true,
-        changeYear: true,
-        dayNamesMin: ["Ma", "Ti", "Ke", "To", "Pe", "La", "Su"],
-        monthNamesShort: ["Tammi", "Helmi", "Maalis", "Huhti", "Touko", "Kesä", "Heinä", "Elo", "Syys", "Loka", "Marras", "Joulu"]
-    });
+    InitializeDatePicker($("input[name='startdate']"));
+    InitializeDatePicker($("input[name='enddate']"));
 
-    $("input[name='enddate']").datepicker({
-        dateFormat: 'yy-mm-dd',
-        shoAnim: 'slideDown',
-        showButtonPanel: true,
-        currentText: 'Tänään',
-        closeText: 'Sulje',
-        changeMonth: true,
-        changeYear: true,
-        dayNamesMin: ["Ma", "Ti", "Ke", "To", "Pe", "La", "Su"],
-        monthNamesShort: ["Tammi", "Helmi", "Maalis", "Huhti", "Touko", "Kesä", "Heinä", "Elo", "Syys", "Loka", "Marras", "Joulu"]
-    });
+    function InitializeDatePicker(element) {
+        $(element).datepicker({
+            dateFormat: 'yy-mm-dd',
+            shoAnim: 'slideDown',
+            showButtonPanel: true,
+            currentText: 'Tänään',
+            closeText: 'Sulje',
+            changeMonth: true,
+            changeYear: true,
+            dayNamesMin: ["Ma", "Ti", "Ke", "To", "Pe", "La", "Su"],
+            monthNamesShort: ["Tammi", "Helmi", "Maalis", "Huhti", "Touko", "Kesä", "Heinä", "Elo", "Syys", "Loka", "Marras", "Joulu"]
+        });
+    }
 
     $('.sDiv').css('display', 'block');
 
@@ -366,6 +359,16 @@ $(document).ready(function () {
         return json;
     }
 
+    ToggleOrderTableFieldVisibilty();
+
+    function ToggleOrderTableFieldVisibilty() {
+        if (GetTypeFromTableTitle() == 'Tilaus') {
+            var responsibility = $("#table-responsibility");
+            responsibility.empty();
+            responsibility.prev().empty();
+        }
+    }
+
     function ClearInputs() {
         $('input').each(function () {
             $(this).val('');
@@ -483,6 +486,8 @@ $(document).ready(function () {
             return "Tilaus";
         } else if (tableTitle == 'Lisätarviketarjoukset') {
             return "Lisätarviketarjous";
+        } else if (tableTitle == '') {
+            return $('#info-table').data('table');
         } else {
             return "";
         }
@@ -527,7 +532,7 @@ $(document).ready(function () {
     function ToggleColumnSelectionOptions(parent) {
         if (parent.length) {
             var value = $(parent).find('.table_selection').val();
-            //alert($(parent).find('.first_column_selection').val());
+
             ShowAllColumnSelectionOptions();
 
             if (value == "tarjoukset") {
@@ -663,6 +668,7 @@ $(document).ready(function () {
     });
 
     ShowMapCharts();
+    ShowTimelineChart();
     ShowTileAndColourChart();
 
     $('#map-chart-tab #chart-filter-execute').click(function () {
@@ -688,8 +694,14 @@ $(document).ready(function () {
         var column = $('#timeline-chart-tab .first_column_selection').val();
         var logic = $('#timeline-chart-tab .logic_selection').val();
         var input = $('#timeline-chart-tab .first_input').val();
+        var year_0 = $('#timeline-chart-tab input[name=year_0]').prop('checked') ? $('#timeline-chart-tab input[name=year_0]').val() : "";
+        var year_1 = $('#timeline-chart-tab input[name=year_1]').prop('checked') ? $('#timeline-chart-tab input[name=year_1]').val() : "";
+        var year_2 = $('#timeline-chart-tab input[name=year_2]').prop('checked') ? $('#timeline-chart-tab input[name=year_2]').val() : "";
+        var year_3 = $('#timeline-chart-tab input[name=year_3]').prop('checked') ? $('#timeline-chart-tab input[name=year_3]').val() : "";
+        var year_4 = $('#timeline-chart-tab input[name=year_4]').prop('checked') ? $('#timeline-chart-tab input[name=year_4]').val() : "";
+        var year_5 = $('#timeline-chart-tab input[name=year_5]').prop('checked') ? $('#timeline-chart-tab input[name=year_5]').val() : "";
 
-        $('#timeline-chart-tab .first_chart_image').attr('src', '/php/scripts/statistics/statistics_timeline_chart.php?table=' + table + '&column=' + column + '&logic=' + logic + '&input=' + input);
+        $('#timeline-chart-tab .first_chart_image').attr('src', '/php/scripts/statistics/statistics_timeline_chart.php?table=' + table + '&column=' + column + '&logic=' + logic + '&input=' + input + '&year_0=' + year_0 + '&year_1=' + year_1 + '&year_2=' + year_2 + '&year_3=' + year_3 + '&year_4=' + year_4 + '&year_5=' + year_5);
     }
 
     $('#tileandcolour-chart-tab #chart-filter-execute').click(function () {
@@ -742,13 +754,13 @@ $(document).ready(function () {
 
 
     function ToggleInputReadOnlyByLogicChange(parent) {
-        if ($(parent).find('.logic_selection').val() == 'null') { 
-            $(parent).find('.first_input').prop('readonly', true); 
+        if ($(parent).find('.logic_selection').val() == 'null') {
+            $(parent).find('.first_input').prop('readonly', true);
             $(parent).find('.first_input').css('background-color', '#ccc');
         } else {
-            $(parent).find('.first_input').prop('readonly', false); 
+            $(parent).find('.first_input').prop('readonly', false);
             $(parent).find('.first_input').css('background-color', '#fff');
         }
     }
- 
+
 });

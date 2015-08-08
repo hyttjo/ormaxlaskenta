@@ -2,7 +2,6 @@
     include("../mysql.php");
 
     $table = $_GET["table"];
-
     $column = $_GET["column"];
     $logic = $_GET["logic"];
     $input = $_GET["input"];
