@@ -72,7 +72,11 @@ html, body {
 
 .margin-right-20px {
     margin-right: 20px;
-}  
+} 
+
+.margin-minus-top-20px {
+    margin-top: -20px;    
+} 
 
 .padding-20px {
     padding: 20px;
@@ -123,6 +127,10 @@ html, body {
 
 .font-bold {
     font-weight: bold;
+}
+
+.font-white {
+    color: white;
 }
 
 .info-box {
@@ -324,33 +332,30 @@ html, body {
 
 /* Charts */
 
-#map-chart-tab, #tileandcolour-chart-tab {
-    padding:  0px 100px;
-}
-
-#timeline-chart-tab {
+#map-chart-tab, #tileandcolour-chart-tab, #timeline-chart-tab, #percentages-chart-tab {
     padding: 0px 75px;
 }
 
-#tileandcolour-chart-tab .first_chart_image {
+#percentages-chart-tab .first_chart_image {
     margin:  20px 0px;
 }
 
+#map-chart-tab .first_chart_image, #map-chart-tab .second_chart_image {
+    margin: 0px 50px;
+}
+
 .first_chart_image, .second_chart_image {
-    margin: 20px 50px;
+    margin: 0px;
     max-height: 480px;
 }
 
-#timeline-chart-tab .first_chart_image {
-    margin: 0px;
-}
-
-.timeline-chart-content {
+.chart-content {
     max-height: 500px;
+    text-align: center;
 }
 
 .year-selection {
-    margin: 100px 0px;
+    margin: 100px 15px;
     max-width: 50px;
 }
 

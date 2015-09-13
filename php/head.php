@@ -10,6 +10,7 @@
         <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.min.js"></script>
         <script src="/js/flexigrid.js"></script>
         <script src="/js/jquery-ui.js"></script> 
+        <script src="/js/jquery.chained.min.js"></script>
         <script src="/js/ormax_script.js"></script>
 
         <title>Määrälaskentojen tilastointi - Ormax Monier Oy</title>

@@ -10,8 +10,8 @@
                                 <span>Vuodet:</span>
                                 <input type="checkbox" name="year_0" value="<?php echo $year_0 ?>" checked/><?php echo $year_0 ?>
                                 <input type="checkbox" name="year_1" value="<?php echo $year_1 ?>" checked/><?php echo $year_1 ?>
-                                <input type="checkbox" name="year_2" value="<?php echo $year_2 ?>"/><?php echo $year_2 ?>
-                                <input type="checkbox" name="year_3" value="<?php echo $year_3 ?>"/><?php echo $year_3 ?>
-                                <input type="checkbox" name="year_4" value="<?php echo $year_4 ?>"/><?php echo $year_4 ?>
-                                <input type="checkbox" name="year_5" value="<?php echo $year_5 ?>"/><?php echo $year_5 ?>
+                                <input type="checkbox" name="year_2" value="<?php echo $year_2 ?>" checked/><?php echo $year_2 ?>
+                                <input type="checkbox" name="year_3" value="<?php echo $year_3 ?>" checked/><?php echo $year_3 ?>
+                                <input type="checkbox" name="year_4" value="<?php echo $year_4 ?>" checked/><?php echo $year_4 ?>
+                                <input type="checkbox" name="year_5" value="<?php echo $year_5 ?>" checked/><?php echo $year_5 ?>
                             </div>

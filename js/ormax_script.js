@@ -517,45 +517,24 @@ $(document).ready(function () {
         return yyyy + "-" + (mm[1] ? mm : "0" + mm[0]) + "-" + (dd[1] ? dd : "0" + dd[0]) + " " + (HH[1] ? HH : "0" + HH[0]) + ":" + (MM[1] ? MM : "0" + MM[0]) + ":" + (SS[1] ? SS : "0" + SS[0]);
     }
 
-    ToggleColumnSelectionOptions($('#batch_edit_table'));
-    ToggleColumnSelectionOptions($('#map-chart-tab'));
+    $('#batch_edit_table .first_column_selection').chained('#batch_edit_table .table_selection');
+    $('#map-chart-tab .first_column_selection').chained('#map-chart-tab .table_selection');
+    $('#timeline-chart-tab .first_column_selection').chained('#timeline-chart-tab .table_selection');
+    $('#tileandcolour-chart-tab .first_column_selection').chained('#tileandcolour-chart-tab .table_selection');
+    $('#percentages-chart-tab .first_column_selection').chained('#percentages-chart-tab .table_selection');
 
-    $('a[data-toggle="tab"]').on('shown.bs.tab', function (e) {
-        ToggleColumnSelectionOptions($(e.target).attr('href'));
+    $('#batch_edit_table .second_column_selection').chained('#batch_edit_table .table_selection');
+    $('#percentages-chart-tab .second_column_selection').chained('#percentages-chart-tab .table_selection');
+
+    $('.table_selection').change(function () {
+        $('.first_input').val('');
     });
-
-    $('#batch_edit_table .table_selection').change(function () { ToggleColumnSelectionOptions($('#batch_edit_table')); });
-    $('#map-chart-tab .table_selection').change(function () { ToggleColumnSelectionOptions($('#map-chart-tab')); });
-    $('#timeline-chart-tab .table_selection').change(function () { ToggleColumnSelectionOptions($('#timeline-chart-tab')); });
-    $('#tileandcolour-chart-tab .table_selection').change(function () { ToggleColumnSelectionOptions($('#tileandcolour-chart-tab')); });
-
-    function ToggleColumnSelectionOptions(parent) {
-        if (parent.length) {
-            var value = $(parent).find('.table_selection').val();
-
-            ShowAllColumnSelectionOptions();
-
-            if (value == "tarjoukset") {
-                $(parent).find('.first_column_selection option:not(.option-tarjoukset)').hide();
-                $(parent).find('.second_column_selection option:not(.option-tarjoukset)').hide();
-            } else if (value == "tilaukset") {
-                $(parent).find('.first_column_selection option:not(.option-tilaukset)').hide();
-                $(parent).find('.second_column_selection option:not(.option-tilaukset)').hide();
-            } else if (value == "lisatarviketarjoukset") {
-                $(parent).find('.first_column_selection option:not(.option-lisatarviketarjoukset)').hide();
-                $(parent).find('.second_column_selection option:not(.option-lisatarviketarjoukset)').hide();
-            }
-        }
-    }
-
-    function ShowAllColumnSelectionOptions() {
-        $('.first_column_selection option').show();
-        $('.second_column_selection option').show();
-    }
 
     $('.first_column_selection').change(function () {
         var value = $(this).val();
-        $('.second_column_selection').val(value);
+        if (!$('.second_column_selection').hasClass('static')) {
+            $('.second_column_selection').val(value);
+        }
     });
 
     $('#batch_edit_table button').click(function () {
@@ -670,6 +649,7 @@ $(document).ready(function () {
     ShowMapCharts();
     ShowTimelineChart();
     ShowTileAndColourChart();
+    ShowPercentagesChart();
 
     $('#map-chart-tab #chart-filter-execute').click(function () {
         ShowMapCharts();
@@ -680,9 +660,15 @@ $(document).ready(function () {
         var column = $('#map-chart-tab .first_column_selection').val();
         var logic = $('#map-chart-tab .logic_selection').val();
         var input = $('#map-chart-tab .first_input').val();
+        var year_0 = $('#map-chart-tab input[name=year_0]').prop('checked') ? $('#map-chart-tab input[name=year_0]').val() : "";
+        var year_1 = $('#map-chart-tab input[name=year_1]').prop('checked') ? $('#map-chart-tab input[name=year_1]').val() : "";
+        var year_2 = $('#map-chart-tab input[name=year_2]').prop('checked') ? $('#map-chart-tab input[name=year_2]').val() : "";
+        var year_3 = $('#map-chart-tab input[name=year_3]').prop('checked') ? $('#map-chart-tab input[name=year_3]').val() : "";
+        var year_4 = $('#map-chart-tab input[name=year_4]').prop('checked') ? $('#map-chart-tab input[name=year_4]').val() : "";
+        var year_5 = $('#map-chart-tab input[name=year_5]').prop('checked') ? $('#map-chart-tab input[name=year_5]').val() : "";
 
-        $('#map-chart-tab .first_chart_image').attr('src', '/php/scripts/statistics/statistics_postal_area_chart.php?table=' + table + '&column=' + column + '&logic=' + logic + '&input=' + input);
-        $('#map-chart-tab .second_chart_image').attr('src', '/php/scripts/statistics/statistics_postal_area_map.php?table=' + table + '&column=' + column + '&logic=' + logic + '&input=' + input);
+        $('#map-chart-tab .first_chart_image').attr('src', '/php/scripts/statistics/statistics_postal_area_chart.php?table=' + table + '&column=' + column + '&logic=' + logic + '&input=' + input + '&year_0=' + year_0 + '&year_1=' + year_1 + '&year_2=' + year_2 + '&year_3=' + year_3 + '&year_4=' + year_4 + '&year_5=' + year_5);
+        $('#map-chart-tab .second_chart_image').attr('src', '/php/scripts/statistics/statistics_postal_area_map.php?table=' + table + '&column=' + column + '&logic=' + logic + '&input=' + input + '&year_0=' + year_0 + '&year_1=' + year_1 + '&year_2=' + year_2 + '&year_3=' + year_3 + '&year_4=' + year_4 + '&year_5=' + year_5);
     }
 
     $('#timeline-chart-tab #chart-filter-execute').click(function () {
@@ -713,13 +699,40 @@ $(document).ready(function () {
         var column = $('#tileandcolour-chart-tab .first_column_selection').val();
         var logic = $('#tileandcolour-chart-tab .logic_selection').val();
         var input = $('#tileandcolour-chart-tab .first_input').val();
+        var year_0 = $('#tileandcolour-chart-tab input[name=year_0]').prop('checked') ? $('#tileandcolour-chart-tab input[name=year_0]').val() : "";
+        var year_1 = $('#tileandcolour-chart-tab input[name=year_1]').prop('checked') ? $('#tileandcolour-chart-tab input[name=year_1]').val() : "";
+        var year_2 = $('#tileandcolour-chart-tab input[name=year_2]').prop('checked') ? $('#tileandcolour-chart-tab input[name=year_2]').val() : "";
+        var year_3 = $('#tileandcolour-chart-tab input[name=year_3]').prop('checked') ? $('#tileandcolour-chart-tab input[name=year_3]').val() : "";
+        var year_4 = $('#tileandcolour-chart-tab input[name=year_4]').prop('checked') ? $('#tileandcolour-chart-tab input[name=year_4]').val() : "";
+        var year_5 = $('#tileandcolour-chart-tab input[name=year_5]').prop('checked') ? $('#tileandcolour-chart-tab input[name=year_5]').val() : "";
 
-        $('#tileandcolour-chart-tab .first_chart_image').attr('src', '/php/scripts/statistics/statistics_tile_and_colour_chart.php?table=' + table + '&column=' + column + '&logic=' + logic + '&input=' + input);
+        $('#tileandcolour-chart-tab .first_chart_image').attr('src', '/php/scripts/statistics/statistics_tile_and_colour_chart.php?table=' + table + '&column=' + column + '&logic=' + logic + '&input=' + input + '&year_0=' + year_0 + '&year_1=' + year_1 + '&year_2=' + year_2 + '&year_3=' + year_3 + '&year_4=' + year_4 + '&year_5=' + year_5);
+    }
+
+    $('#percentages-chart-tab #chart-filter-execute').click(function () {
+        ShowPercentagesChart();
+    });
+
+    function ShowPercentagesChart() {
+        var table = $('#percentages-chart-tab .table_selection').val();
+        var searchcolumn = $('#percentages-chart-tab .first_column_selection').val();
+        var logic = $('#percentages-chart-tab .logic_selection').val();
+        var input = $('#percentages-chart-tab .first_input').val();
+        var column = $('#percentages-chart-tab .second_column_selection').val();
+        var year_0 = $('#percentages-chart-tab input[name=year_0]').prop('checked') ? $('#percentages-chart-tab input[name=year_0]').val() : "";
+        var year_1 = $('#percentages-chart-tab input[name=year_1]').prop('checked') ? $('#percentages-chart-tab input[name=year_1]').val() : "";
+        var year_2 = $('#percentages-chart-tab input[name=year_2]').prop('checked') ? $('#percentages-chart-tab input[name=year_2]').val() : "";
+        var year_3 = $('#percentages-chart-tab input[name=year_3]').prop('checked') ? $('#percentages-chart-tab input[name=year_3]').val() : "";
+        var year_4 = $('#percentages-chart-tab input[name=year_4]').prop('checked') ? $('#percentages-chart-tab input[name=year_4]').val() : "";
+        var year_5 = $('#percentages-chart-tab input[name=year_5]').prop('checked') ? $('#percentages-chart-tab input[name=year_5]').val() : "";
+
+        $('#percentages-chart-tab .first_chart_image').attr('src', '/php/scripts/statistics/statistics_pie_chart.php?table=' + table + '&searchcolumn=' + searchcolumn + '&logic=' + logic + '&input=' + input + '&column=' + column + '&year_0=' + year_0 + '&year_1=' + year_1 + '&year_2=' + year_2 + '&year_3=' + year_3 + '&year_4=' + year_4 + '&year_5=' + year_5);
     }
 
     InitializeChartsAutocomplete($('#map-chart-tab'));
     InitializeChartsAutocomplete($('#timeline-chart-tab'));
     InitializeChartsAutocomplete($('#tileandcolour-chart-tab'));
+    InitializeChartsAutocomplete($('#percentages-chart-tab'));
 
     function InitializeChartsAutocomplete(tab) {
         $(tab).find(".first_input").autocomplete({
@@ -751,7 +764,7 @@ $(document).ready(function () {
     $('#map-chart-tab .logic_selection').change(function () { ToggleInputReadOnlyByLogicChange($('#map-chart-tab')); });
     $('#timeline-chart-tab .logic_selection').change(function () { ToggleInputReadOnlyByLogicChange($('#timeline-chart-tab')); });
     $('#tileandcolour-chart-tab .logic_selection').change(function () { ToggleInputReadOnlyByLogicChange($('#tileandcolour-chart-tab')); });
-
+    $('#percentages-chart-tab .logic_selection').change(function () { ToggleInputReadOnlyByLogicChange($('#percentages-chart-tab')); });
 
     function ToggleInputReadOnlyByLogicChange(parent) {
         if ($(parent).find('.logic_selection').val() == 'null') {
@@ -762,5 +775,4 @@ $(document).ready(function () {
             $(parent).find('.first_input').css('background-color', '#fff');
         }
     }
-
 });

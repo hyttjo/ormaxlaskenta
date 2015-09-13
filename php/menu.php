@@ -20,6 +20,6 @@
         <button id="button_orders" class="btn btn-danger <?php echo $menu_orders_selected; ?>">Tilaukset</button>
         <button id="button_quotations"class="btn btn-danger <?php echo $menu_quotations_selected; ?>">Tarjoukset</button>
         <button id="button_accessories_quotations"class="btn btn-danger <?php echo $menu_accessories_quotations_selected; ?>">Lisätarviketarjoukset</button>
-        <button id="button_batch_edit"class="btn btn-danger <?php echo $menu_batch_edit_selected; ?>">Taulukko editointi</button>
+        <button id="button_batch_edit"class="btn btn-danger <?php echo $menu_batch_edit_selected; ?>">Sarja muokkaus</button>
         <button id="button_charts"class="btn btn-danger <?php echo $menu_charts_selected; ?>">Tilastointi</button>
     </div>

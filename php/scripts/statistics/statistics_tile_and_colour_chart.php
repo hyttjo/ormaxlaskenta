@@ -1,167 +1,48 @@
 <?php
-    include("statistics_tile_and_colour.php");    
+    include("statistics_tile_and_colour.php");
+    include("statistics_series_total_sum.php"); 
+    include("statistics_description_years.php");   
 
     include("pChart/class/pData.class.php");
     include("pChart/class/pDraw.class.php");
     include("pChart/class/pImage.class.php");
 
+    include("statistics_description_text.php");
+
     $width = 760;
-    $height = 480;
+    $height = 500;
 
     $pChart = new pData();
-    $pChart->addPoints(array($tile_colour_results[0][0],
-                             $tile_colour_results[1][0],
-                             $tile_colour_results[2][0],
-                             $tile_colour_results[3][0],
-                             $tile_colour_results[4][0],
-                             $tile_colour_results[5][0],
-                             $tile_colour_results[6][0],
-                             $tile_colour_results[7][0],
-                             $tile_colour_results[8][0],
-                             $tile_colour_results[9][0],
-                             $tile_colour_results[10][0],
-                             $tile_colour_results[11][0],
-                             $tile_colour_results[12][0]),"Serie1");
-    $pChart->setSerieDescription("Serie1","Savitiilenpunainen");
-    $pChart->setSerieOnAxis("Serie1",0);
-    $pChart->setPalette("Serie1", array("R"=>246,"G"=>113,"B"=>53,"Alpha"=>100));
 
-    $pChart->addPoints(array($tile_colour_results[0][1],
-                             $tile_colour_results[1][1],
-                             $tile_colour_results[2][1],
-                             $tile_colour_results[3][1],
-                             $tile_colour_results[4][1],
-                             $tile_colour_results[5][1],
-                             $tile_colour_results[6][1],
-                             $tile_colour_results[7][1],
-                             $tile_colour_results[8][1],
-                             $tile_colour_results[9][1],
-                             $tile_colour_results[10][1],
-                             $tile_colour_results[11][1],
-                             $tile_colour_results[12][1]),"Serie2");
-    $pChart->setSerieDescription("Serie2","Tupapunainen");
-    $pChart->setSerieOnAxis("Serie2",0);
-    $pChart->setPalette("Serie2", array("R"=>211,"G"=>60,"B"=>29,"Alpha"=>100));
-
-    $pChart->addPoints(array($tile_colour_results[0][2],
-                             $tile_colour_results[1][2],
-                             $tile_colour_results[2][2],
-                             $tile_colour_results[3][2],
-                             $tile_colour_results[4][2],
-                             $tile_colour_results[5][2],
-                             $tile_colour_results[6][2],
-                             $tile_colour_results[7][2],
-                             $tile_colour_results[8][2],
-                             $tile_colour_results[9][2],
-                             $tile_colour_results[10][2],
-                             $tile_colour_results[11][2],
-                             $tile_colour_results[12][2]),"Serie3");
-    $pChart->setSerieDescription("Serie3","Tummanharmaa");
-    $pChart->setSerieOnAxis("Serie3",0);
-    $pChart->setPalette("Serie3", array("R"=>80,"G"=>94,"B"=>97,"Alpha"=>100));
-
-    $pChart->addPoints(array($tile_colour_results[0][3],
-                             $tile_colour_results[1][3],
-                             $tile_colour_results[2][3],
-                             $tile_colour_results[3][3],
-                             $tile_colour_results[4][3],
-                             $tile_colour_results[5][3],
-                             $tile_colour_results[6][3],
-                             $tile_colour_results[7][3],
-                             $tile_colour_results[8][3],
-                             $tile_colour_results[9][3],
-                             $tile_colour_results[10][3],
-                             $tile_colour_results[11][3],
-                             $tile_colour_results[12][3]),"Serie4");
-    $pChart->setSerieDescription("Serie4","Harmaa");
-    $pChart->setSerieOnAxis("Serie4",0);
-    $pChart->setPalette("Serie4", array("R"=>131,"G"=>137,"B"=>129,"Alpha"=>100));
-
-    $pChart->addPoints(array($tile_colour_results[0][4],
-                             $tile_colour_results[1][4],
-                             $tile_colour_results[2][4],
-                             $tile_colour_results[3][4],
-                             $tile_colour_results[4][4],
-                             $tile_colour_results[5][4],
-                             $tile_colour_results[6][4],
-                             $tile_colour_results[7][4],
-                             $tile_colour_results[8][4],
-                             $tile_colour_results[9][4],
-                             $tile_colour_results[10][4],
-                             $tile_colour_results[11][4],
-                             $tile_colour_results[12][4]),"Serie5");
-    $pChart->setSerieDescription("Serie5","Musta");
-    $pChart->setSerieOnAxis("Serie5",0);
-    $pChart->setPalette("Serie5", array("R"=>42,"G"=>43,"B"=>45,"Alpha"=>100));
-
-    $pChart->addPoints(array($tile_colour_results[0][5],
-                             $tile_colour_results[1][5],
-                             $tile_colour_results[2][5],
-                             $tile_colour_results[3][5],
-                             $tile_colour_results[4][5],
-                             $tile_colour_results[5][5],
-                             $tile_colour_results[6][5],
-                             $tile_colour_results[7][5],
-                             $tile_colour_results[8][5],
-                             $tile_colour_results[9][5],
-                             $tile_colour_results[10][5],
-                             $tile_colour_results[11][5],
-                             $tile_colour_results[12][5]),"Serie6");
-    $pChart->setSerieDescription("Serie6","Ruskea");
-    $pChart->setSerieOnAxis("Serie6",0);
-    $pChart->setPalette("Serie6", array("R"=>116,"G"=>82,"B"=>73,"Alpha"=>100));
-
-    $pChart->addPoints(array($tile_colour_results[0][6],
-                             $tile_colour_results[1][6],
-                             $tile_colour_results[2][6],
-                             $tile_colour_results[3][6],
-                             $tile_colour_results[4][6],
-                             $tile_colour_results[5][6],
-                             $tile_colour_results[6][6],
-                             $tile_colour_results[7][6],
-                             $tile_colour_results[8][6],
-                             $tile_colour_results[9][6],
-                             $tile_colour_results[10][6],
-                             $tile_colour_results[11][6],
-                             $tile_colour_results[12][6]),"Serie7");
-    $pChart->setSerieDescription("Serie7","Antiikki");
-    $pChart->setSerieOnAxis("Serie7",0);
-    $pChart->setPalette("Serie7", array("R"=>190,"G"=>93,"B"=>72,"Alpha"=>100));
-
-    $pChart->addPoints(array($tile_colour_results[0][7],
-                             $tile_colour_results[1][7],
-                             $tile_colour_results[2][7],
-                             $tile_colour_results[3][7],
-                             $tile_colour_results[4][7],
-                             $tile_colour_results[5][7],
-                             $tile_colour_results[6][7],
-                             $tile_colour_results[7][7],
-                             $tile_colour_results[8][7],
-                             $tile_colour_results[9][7],
-                             $tile_colour_results[10][7],
-                             $tile_colour_results[11][7],
-                             $tile_colour_results[12][7]),"Serie8");
-    $pChart->setSerieDescription("Serie8","Antrasiitti");
-    $pChart->setSerieOnAxis("Serie8",0);
-    $pChart->setPalette("Serie8", array("R"=>95,"G"=>83,"B"=>84,"Alpha"=>100));
-
-    $pChart->addPoints(array($tile_colour_results[0][8],
-                             $tile_colour_results[1][8],
-                             $tile_colour_results[2][8],
-                             $tile_colour_results[3][8],
-                             $tile_colour_results[4][8],
-                             $tile_colour_results[5][8],
-                             $tile_colour_results[6][8],
-                             $tile_colour_results[7][8],
-                             $tile_colour_results[8][8],
-                             $tile_colour_results[9][8],
-                             $tile_colour_results[10][8],
-                             $tile_colour_results[11][8],
-                             $tile_colour_results[12][8]),"Serie9");
-    $pChart->setSerieDescription("Serie9","Tyhjä");
-    $pChart->setSerieOnAxis("Serie9",0);
-    $pChart->setPalette("Serie9", array("R"=>220,"G"=>220,"B"=>220,"Alpha"=>100));
-
+    $chart_tile_colours = array("0" => array("R"=>246,"G"=>113,"B"=>53,"Alpha"=>100),
+                                "1" => array("R"=>211,"G"=>60,"B"=>29,"Alpha"=>100),
+                                "2" => array("R"=>80,"G"=>94,"B"=>97,"Alpha"=>100),
+                                "3" => array("R"=>131,"G"=>137,"B"=>129,"Alpha"=>100),
+                                "4" => array("R"=>42,"G"=>43,"B"=>45,"Alpha"=>100),
+                                "5" => array("R"=>116,"G"=>82,"B"=>73,"Alpha"=>100),
+                                "6" => array("R"=>190,"G"=>93,"B"=>72,"Alpha"=>100),
+                                "7" => array("R"=>95,"G"=>83,"B"=>84,"Alpha"=>100),
+                                "8" => array("R"=>220,"G"=>220,"B"=>220,"Alpha"=>100));
+    
+    for ($i = 0; $i < count($colours); $i++) {
+        $pChart->addPoints(array($tile_colour_results[0][$i],
+                                 $tile_colour_results[1][$i],
+                                 $tile_colour_results[2][$i],
+                                 $tile_colour_results[3][$i],
+                                 $tile_colour_results[4][$i],
+                                 $tile_colour_results[5][$i],
+                                 $tile_colour_results[6][$i],
+                                 $tile_colour_results[7][$i],
+                                 $tile_colour_results[8][$i],
+                                 $tile_colour_results[9][$i],
+                                 $tile_colour_results[10][$i],
+                                 $tile_colour_results[11][$i],
+                                 $tile_colour_results[12][$i]),"Serie$i");
+        $pChart->setSerieDescription("Serie$i", $colours[$i][0]);
+        $pChart->setSerieOnAxis("Serie$i",0);
+        $pChart->setPalette("Serie$i", $chart_tile_colours[$i]);    
+    }
+ 
     $pChart->addPoints(array(get_tile_total_count($tile_colour_results, 0),
                              get_tile_total_count($tile_colour_results, 1),
                              get_tile_total_count($tile_colour_results, 2),
@@ -193,7 +74,17 @@
     $TextSettings = array("Align"=>TEXT_ALIGN_BOTTOMMIDDLE, "R"=>0, "G"=>0, "B"=>0);
     $pChartPicture->drawText($width / 2,25,ucfirst($table)." - Tiilet / Värit", $TextSettings);
 
-    $pChartPicture->setGraphArea(50,35,$width - 25,$height - 75);
+    $description .= GetYearsDescription($years);
+    $description .= " - (". GetSeriesTotalSum($pChart, "Half") ."kpl)";
+
+    if (strlen($description) > 120) {
+        $description = substr($description, strpos($description, "joissa"));
+    }
+
+    $pChartPicture->setFontProperties(array("FontSize"=>11));
+    $pChartPicture->drawText($width / 2,45, $description, $TextSettings);
+
+    $pChartPicture->setGraphArea(50,55,$width - 25,$height - 75);
     $pChartPicture->setFontProperties(array("R"=>0,"G"=>0,"B"=>0,"FontName"=>"pChart/fonts/arial.ttf","FontSize"=>10));
 
     $Settings = array("Pos"=>SCALE_POS_LEFTRIGHT, "Mode"=>SCALE_MODE_ADDALL_START0, "LabelingMethod"=>LABELING_DIFFERENT, 
@@ -211,20 +102,15 @@
     $Config = array("FontR"=>0, "FontG"=>0, "FontB"=>0, "FontName"=>"pChart/fonts/arial.ttf", "FontSize"=>10, 
     "Margin"=>40, "Alpha"=>30, "BoxWidth"=>10, "BoxHeight"=>10, "Style"=>LEGEND_NOBORDER, "Mode"=>LEGEND_HORIZONTAL);
 
-    $pChartPicture->drawLegend(25, $height - 40, $Config);
+    $pChartPicture->drawLegend(50, $height - 40, $Config);
 
     $pChart->setSerieDrawable('Serie10', TRUE);
-    $pChart->setSerieDrawable('Serie9', FALSE);
-    $pChart->setSerieDrawable('Serie8', FALSE);
-    $pChart->setSerieDrawable('Serie7', FALSE);
-    $pChart->setSerieDrawable('Serie6', FALSE);
-    $pChart->setSerieDrawable('Serie5', FALSE);
-    $pChart->setSerieDrawable('Serie4', FALSE);
-    $pChart->setSerieDrawable('Serie3', FALSE);
-    $pChart->setSerieDrawable('Serie2', FALSE);
-    $pChart->setSerieDrawable('Serie1', FALSE);
 
-    $pChartPicture->setGraphArea(50, 30, $width - 25, $height - 80);
+    for ($i = 0; $i < count($colours); $i++) {
+        $pChart->setSerieDrawable("Serie$i", FALSE);
+    }
+
+    $pChartPicture->setGraphArea(50, 50, $width - 25, $height - 80);
     $pChartPicture->setFontProperties(array("R"=>0,"G"=>0,"B"=>0,"FontName"=>"pChart/fonts/arialbd.ttf","FontSize"=>10));
     $pChartPicture->drawBarChart(array("DisplayValues" => TRUE, "DisplayColor"=>array('R'=>0, 'G'=>0, 'B'=>0)));
 

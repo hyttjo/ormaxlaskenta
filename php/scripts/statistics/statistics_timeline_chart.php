@@ -1,34 +1,29 @@
-<?php
-    //include("statistics_timeline.php");   
+<?php    
+    include("mysql.php");
     
-    include("../mysql.php");
+    include("statistics_series_total_sum.php");
 
     include("pChart/class/pData.class.php");
     include("pChart/class/pDraw.class.php");
     include("pChart/class/pImage.class.php");
-
+    
     $table = $_GET["table"];
     $column = $_GET["column"];
     $logic = $_GET["logic"];
     $input = $_GET["input"];
-
+    
     $years = array($_GET["year_0"], $_GET["year_1"], $_GET["year_2"], $_GET["year_3"], $_GET["year_4"], $_GET["year_5"]);
     $years = array_values(array_filter($years));
 
-    if (isset($_GET["column"]) && isset($_GET["input"]) && $column != '' && $input != '' && $logic == 'is') {
-        $searchSQL = "AND ($column = '$input')";
-    }
+    include("statistics_description_text.php");
+    include("statistics_search_logic.php");
 
-    if ($logic == "not") $searchSQL = "AND ($column != '$input')";
-    if ($logic == "include") $searchSQL = "AND ($column LIKE '%$input%')";
-    if ($logic == "null") $searchSQL = "AND ($column IS NULL OR $column = '')";
-   
     $results = array();
 
     for ($i = 0; $i < count($years); $i++) {
         $query = "SELECT MONTHNAME(pvm) AS month, COUNT(*) AS count FROM $table WHERE YEAR(pvm) = '$years[$i]' $searchSQL GROUP BY MONTH(pvm)";
         $month_totals = $conn->query($query);
-        
+
         if ($conn->error) { printf("Errormessage: %s\n", $conn->error); }    
 
         $data = array("January" => 0, 
@@ -47,21 +42,14 @@
         while($row = $month_totals->fetch_array()) {
             $data = array_merge($data, array($row['month'] => $row['count']));
         }
-        
+
         $results[$i] = array($years[$i] => $data); 
     }
 
     $width = 760;
-    $height = 480;
+    $height = 500;
 
     $pChart = new pData();
-
-    $line_colours = array("0" => array("R"=>234,"G"=>66,"B"=>91,"Alpha"=>100),
-                          "1" => array("R"=>87,"G"=>220,"B"=>80,"Alpha"=>100),
-                          "2" => array("R"=>80,"G"=>112,"B"=>220,"Alpha"=>100),
-                          "3" => array("R"=>217,"G"=>71,"B"=>228,"Alpha"=>100),
-                          "4" => array("R"=>246,"G"=>113,"B"=>53,"Alpha"=>100),
-                          "5" => array("R"=>233,"G"=>224,"B"=>67,"Alpha"=>100));
     
     for ($i = 0; $i < count($results); $i++) {
         foreach($results[$i] as $year => $month_results) {
@@ -79,7 +67,6 @@
                                      $month_results['December']),"Serie$i");
             $pChart->setSerieDescription("Serie$i",$year);
             $pChart->setSerieOnAxis("Serie$i",0);
-            $pChart->setPalette("Serie$i", $line_colours[$i]);
             $pChart->setSerieWeight("Serie$i",0.75);
         }
     }
@@ -88,7 +75,7 @@
     $pChart->setAbscissa("Absissa");
 
     $pChart->setAxisPosition(0,AXIS_POSITION_LEFT);
-    $pChart->setAxisName(0,"Laskentamäärä / vuosi");
+    $pChart->setAxisName(0,"Laskentamäärä");
     $pChart->setAxisUnit(0,"");
 
     $pChartPicture = new pImage($width,$height,$pChart);
@@ -99,7 +86,17 @@
     $TextSettings = array("Align"=>TEXT_ALIGN_BOTTOMMIDDLE, "R"=>0, "G"=>0, "B"=>0);
     $pChartPicture->drawText($width / 2,25,ucfirst($table)." - Aikajana", $TextSettings);
 
-    $pChartPicture->setGraphArea(50,35,$width - 25,$height - 75);
+    $description .= GetYearsDescription($years);
+    $description .= " - (". GetSeriesTotalSum($pChart) ." kpl)";
+
+    if (strlen($description) > 120) {
+        $description = substr($description, strpos($description, "joissa"));
+    }
+
+    $pChartPicture->setFontProperties(array("FontSize"=>11));
+    $pChartPicture->drawText($width / 2,45, $description, $TextSettings);
+
+    $pChartPicture->setGraphArea(50,55,$width - 25,$height - 75);
     $pChartPicture->setFontProperties(array("R"=>0,"G"=>0,"B"=>0,"FontName"=>"pChart/fonts/arial.ttf","FontSize"=>10));
 
     $Settings = array("Pos"=>SCALE_POS_LEFTRIGHT, "Mode"=>SCALE_MODE_FLOATING, "LabelingMethod"=>LABELING_DIFFERENT, 

@@ -15,36 +15,36 @@
                 </td>
                 <td>
                     <select class="first_column_selection">
-                        <option value="id" class="option-tarjoukset option-tilaukset option-lisatarviketarjoukset">ID</option>
-                        <option value="pvm" class="option-tarjoukset option-tilaukset option-lisatarviketarjoukset">Pvm</option>
-                        <option value="tiili" class="option-tarjoukset option-tilaukset option-lisatarviketarjoukset" selected>Tiili</option>
-                        <option value="vari" class="option-tarjoukset option-tilaukset option-lisatarviketarjoukset">Väri</option>
-                        <option value="kattoturva" class="option-tarjoukset option-tilaukset">Kattoturva</option>
-                        <option value="sadevesi" class="option-tarjoukset option-tilaukset">Sadevesi</option>
-                        <option value="muoto" class="option-tarjoukset option-tilaukset">Katon muoto</option>
-                        <option value="kaltevuus" class="option-tarjoukset option-tilaukset">Katon kaltevuus</option>
-                        <option value="paaty" class="option-tarjoukset option-tilaukset">Päätymateriaali</option>
-                        <option value="toimitustapa" class="option-tarjoukset option-tilaukset">Toimitustapa</option>
-                        <option value="asiakasryhma" class="option-tarjoukset option-tilaukset">Asiakasryhmä</option>
-                        <option value="asiakasnumero" class="option-tarjoukset option-tilaukset">Asiakasnumero</option>
-                        <option value="asiakasnimi" class="option-tarjoukset option-tilaukset">Asiakasnimi</option>
-                        <option value="viite" class="option-tarjoukset option-tilaukset">Viite</option>
-                        <option value="talotehdas" class="option-lisatarviketarjoukset">Talotehdas</option>
-                        <option value="ostotilausnro" class="option-lisatarviketarjoukset">Ostotilausnumero</option>
-                        <option value="nimi" class="option-tarjoukset option-tilaukset option-lisatarviketarjoukset">Nimi</option>
-                        <option value="puh" class="option-tarjoukset option-tilaukset option-lisatarviketarjoukset">Puhelin</option>
-                        <option value="email" class="option-lisatarviketarjoukset">Email</option>
-                        <option value="kontaktihenkilo" class="option-lisatarviketarjoukset">Yhteyshenkiö</option>
-                        <option value="katunimi" class="option-tarjoukset option-tilaukset option-lisatarviketarjoukset">Katunimi</option>
-                        <option value="katunumero" class="option-tarjoukset option-tilaukset option-lisatarviketarjoukset">Katunumero</option>
-                        <option value="postinumero" class="option-tarjoukset option-tilaukset option-lisatarviketarjoukset">Postinumero</option>
-                        <option value="kaupunki" class="option-tarjoukset option-tilaukset option-lisatarviketarjoukset">Kunta</option>
-                        <option value="tekija" class="option-tarjoukset option-tilaukset">Tekijä</option>
-                        <option value="paivienkesto" class="option-tarjoukset option-tilaukset">Päivien kesto</option>
-                        <option value="laskennankesto" class="option-tarjoukset option-tilaukset">Laskennankesto</option>
-                        <option value="asiakkaanvastuulla" class="option-tarjoukset">Määrät as. vastuulla</option>
-                        <option value="hinta" class="option-lisatarviketarjoukset">Hinta</option>
-                        <option value="toimituspvm" class="option-lisatarviketarjoukset">Toimitus Pvm</option>
+                        <option value="id" class="tarjoukset tilaukset lisatarviketarjoukset">ID</option>
+                        <option value="pvm" class="tarjoukset tilaukset lisatarviketarjoukset">Pvm</option>
+                        <option value="tiili" class="tarjoukset tilaukset lisatarviketarjoukset" selected>Tiili</option>
+                        <option value="vari" class="tarjoukset tilaukset lisatarviketarjoukset">Väri</option>
+                        <option value="kattoturva" class="tarjoukset tilaukset">Kattoturva</option>
+                        <option value="sadevesi" class="tarjoukset tilaukset">Sadevesi</option>
+                        <option value="muoto" class="tarjoukset tilaukset">Katon muoto</option>
+                        <option value="kaltevuus" class="tarjoukset tilaukset">Katon kaltevuus</option>
+                        <option value="paaty" class="tarjoukset tilaukset">Päätymateriaali</option>
+                        <option value="toimitustapa" class="tarjoukset tilaukset">Toimitustapa</option>
+                        <option value="asiakasryhma" class="tarjoukset tilaukset">Asiakasryhmä</option>
+                        <option value="asiakasnumero" class="tarjoukset tilaukset">Asiakasnumero</option>
+                        <option value="asiakasnimi" class="tarjoukset tilaukset">Asiakasnimi</option>
+                        <option value="viite" class="tarjoukset tilaukset">Viite</option>
+                        <option value="talotehdas" class="lisatarviketarjoukset">Talotehdas</option>
+                        <option value="ostotilausnro" class="lisatarviketarjoukset">Ostotilausnumero</option>
+                        <option value="nimi" class="tarjoukset tilaukset lisatarviketarjoukset">Nimi</option>
+                        <option value="puh" class="tarjoukset tilaukset lisatarviketarjoukset">Puhelin</option>
+                        <option value="email" class="lisatarviketarjoukset">Email</option>
+                        <option value="kontaktihenkilo" class="lisatarviketarjoukset">Yhteyshenkiö</option>
+                        <option value="katunimi" class="tarjoukset tilaukset lisatarviketarjoukset">Katunimi</option>
+                        <option value="katunumero" class="tarjoukset tilaukset lisatarviketarjoukset">Katunumero</option>
+                        <option value="postinumero" class="tarjoukset tilaukset lisatarviketarjoukset">Postinumero</option>
+                        <option value="kaupunki" class="tarjoukset tilaukset lisatarviketarjoukset">Kunta</option>
+                        <option value="tekija" class="tarjoukset tilaukset">Tekijä</option>
+                        <option value="paivienkesto" class="tarjoukset tilaukset">Päivien kesto</option>
+                        <option value="laskennankesto" class="tarjoukset tilaukset">Laskennankesto</option>
+                        <option value="asiakkaanvastuulla" class="tarjoukset">Määrät as. vastuulla</option>
+                        <option value="hinta" class="lisatarviketarjoukset">Hinta</option>
+                        <option value="toimituspvm" class="lisatarviketarjoukset">Toimitus Pvm</option>
                     </select>
                 </td>
                 <td>

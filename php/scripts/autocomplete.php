@@ -54,13 +54,16 @@
         $quotation_fields = array("pvm", "tiili", "vari", "kattoturva", "sadevesi", "muoto", "kaltevuus", "paaty", "toimitustapa", "asiakasryhma", "asiakasnumero", "asiakasnimi", "viite", "nimi", "puh", "katunimi", "katunumero", "postinumero", "kaupunki", "tekija", "paivienkesto", "laskennankesto", "asiakkaanvastuulla");
         $order_fields = array("pvm", "tiili", "vari", "kattoturva", "sadevesi", "muoto", "kaltevuus", "paaty", "toimitustapa", "asiakasryhma", "asiakasnumero", "asiakasnimi", "viite", "nimi", "puh", "katunimi", "katunumero", "postinumero", "kaupunki", "tekija", "paivienkesto", "laskennankesto");
         $accessories_fields = array("pvm", "tiili", "vari", "talotehdas", "ostotilausnro", "nimi", "puh", "email", "kontaktihenkilo", "katunimi", "katunumero", "postinumero", "kaupunki", "hinta", "toimituspvm");
+        $address_fields = array("postinumero", "kaupunki");
 
         if ($table == 'tarjoukset') {
             $fields = $quotation_fields;
         } else if ($table == 'tilaukset') {
             $fields = $order_fields;
-        } else {
+        } else if ($table == 'lisatarviketarjoukset') {
             $fields = $accessories_fields;
+        } else {
+            $fields = $address_fields;
         }
         
         $query_allfields = "";

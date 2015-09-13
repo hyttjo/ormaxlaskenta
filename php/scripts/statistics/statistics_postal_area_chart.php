@@ -1,11 +1,17 @@
 <?php
     include("statistics_delivery_areas.php");
+    include("statistics_series_total_sum.php");
 
     include("pChart/class/pData.class.php");
     include("pChart/class/pDraw.class.php");
     include("pChart/class/pImage.class.php");
 
+    include("statistics_description_text.php");
+
     $pChart = new pData();
+
+    $width = 260;
+    $height = 500;
     
     $pChart->addPoints(array($result_00_10[0],
 	                         $result_11_14[0],
@@ -67,20 +73,37 @@
     $pChart->setAxisName(0,"Kappalemäärä / postinumeroalue");
     $pChart->setAxisUnit(0,"");
 
-    $pChartPicture = new pImage(260,480,$pChart);
+    $pChartPicture = new pImage($width,$height,$pChart);
     $Settings = array("R"=>255, "G"=>255, "B"=>255);
     $pChartPicture->drawFilledRectangle(0,0,250,470,$Settings);
 
     $pChartPicture->setShadow(TRUE,array("X"=>1,"Y"=>1,"R"=>50,"G"=>50,"B"=>50,"Alpha"=>20));
 
     $pChartPicture->setFontProperties(array("FontName"=>"pChart/fonts/arial.ttf","FontSize"=>14));
-    $TextSettings = array("Align"=>TEXT_ALIGN_TOPMIDDLE
-    , "R"=>0, "G"=>0, "B"=>0);
-    $pChartPicture->drawText(130,5,ucfirst($table),$TextSettings);
-    $pChartPicture->drawText(130,22,"postinumeroalueittain",$TextSettings);
+    $TextSettings = array("Align"=>TEXT_ALIGN_TOPMIDDLE, "R"=>0, "G"=>0, "B"=>0);
+    $pChartPicture->drawText($width / 2,5,ucfirst($table) . " /", $TextSettings);
+    $pChartPicture->drawText($width / 2,22,"postinumeroalue", $TextSettings);
+
+    $description_years = GetYearsDescription($years);
+    $description_sum = "(". GetSeriesTotalSum($pChart) ." kpl)";
+
+    if (strlen($description) > 48) {
+        $description = substr($description, strpos($description, "joissa"));
+    }
+
+    if (strlen($description_years) > 0) {
+        $height_offset = 20;
+    } else {
+        $height_offset = 0;
+    }
+
+    $pChartPicture->setFontProperties(array("FontSize"=>10));
+    $pChartPicture->drawText($width / 2, 45, $description, $TextSettings);
+    $pChartPicture->drawText($width / 2, 45 + $height_offset, $description_years, $TextSettings);
+    $pChartPicture->drawText($width / 2, 65 + $height_offset, $description_sum, $TextSettings);
 
     $pChartPicture->setShadow(FALSE);
-    $pChartPicture->setGraphArea(35,80,245,470);
+    $pChartPicture->setGraphArea(35,115 + $height_offset,$width - 15,$height - 10);
     $pChartPicture->setFontProperties(array("R"=>0,"G"=>0,"B"=>0,"FontName"=>"pChart/fonts/arial.ttf","FontSize"=>8));
 
     $Settings = array("Pos"=>SCALE_POS_TOPBOTTOM

@@ -755,20 +755,29 @@
      if ( $Boundaries["B"]-($vY+$BoxSize) < $TopOffset ) { $Boundaries["B"] = $vY+$BoxSize+$TopOffset; }
 
      if ( $Style == LEGEND_ROUND )
-      $this->pChartObject->drawRoundedFilledRectangle($Boundaries["L"]-$Margin,$Boundaries["T"]-$Margin,$Boundaries["R"]+$Margin,$Boundaries["B"]+$Margin,$Margin,array("R"=>$R,"G"=>$G,"B"=>$B,"Alpha"=>$Alpha,"BorderR"=>$BorderR,"BorderG"=>$BorderG,"BorderB"=>$BorderB));
+      $this->pChartObject->drawRoundedFilledRectangle($Boundaries["L"]-$Margin,$Boundaries["T"]-$Margin,$Boundaries["R"]+$Margin + 50,$Boundaries["B"]+$Margin,$Margin,array("R"=>$R,"G"=>$G,"B"=>$B,"Alpha"=>$Alpha,"BorderR"=>$BorderR,"BorderG"=>$BorderG,"BorderB"=>$BorderB));
      elseif ( $Style == LEGEND_BOX )
       $this->pChartObject->drawFilledRectangle($Boundaries["L"]-$Margin,$Boundaries["T"]-$Margin,$Boundaries["R"]+$Margin,$Boundaries["B"]+$Margin,array("R"=>$R,"G"=>$G,"B"=>$B,"Alpha"=>$Alpha,"BorderR"=>$BorderR,"BorderG"=>$BorderG,"BorderB"=>$BorderB));
 
      $RestoreShadow = $this->pChartObject->Shadow; $this->pChartObject->Shadow = FALSE;
      foreach($Data["Series"][$Data["Abscissa"]]["Data"] as $Key => $Value)
       {
+       $valueCount = $Data["Series"]["Serie"]["Data"][$Key];
+       
+       $valueSum = 0;
+       for ($i = 0; $i < count($Data["Series"]["Serie"]["Data"]); $i++) {
+           $valueSum += $Data["Series"]["Serie"]["Data"][$i];
+       }
+
+       $percentageText = round((100 / $valueSum) * $valueCount, 1) . "%";
+
        $R = $Palette[$Key]["R"]; $G = $Palette[$Key]["G"]; $B = $Palette[$Key]["B"];
 
        $this->pChartObject->drawFilledRectangle($X+1,$Y+1,$X+$BoxSize+1,$Y+$BoxSize+1,array("R"=>0,"G"=>0,"B"=>0,"Alpha"=>20));
        $this->pChartObject->drawFilledRectangle($X,$Y,$X+$BoxSize,$Y+$BoxSize,array("R"=>$R,"G"=>$G,"B"=>$B,"Surrounding"=>20));
        if ( $Mode == LEGEND_VERTICAL )
         {
-         $this->pChartObject->drawText($X+$BoxSize+4,$Y+$BoxSize/2,$Value,array("R"=>$FontR,"G"=>$FontG,"B"=>$FontB,"Align"=>TEXT_ALIGN_MIDDLELEFT,"FontName"=>$FontName,"FontSize"=>$FontSize));
+         $this->pChartObject->drawText($X+$BoxSize+4,$Y+$BoxSize/2,$Value . " - " . $percentageText,array("R"=>$FontR,"G"=>$FontG,"B"=>$FontB,"Align"=>TEXT_ALIGN_MIDDLELEFT,"FontName"=>$FontName,"FontSize"=>$FontSize));
          $Y=$Y+$YStep;
         }
        elseif ( $Mode == LEGEND_HORIZONTAL )
@@ -1449,7 +1458,7 @@
      $this->pChartObject->Shadow = $RestoreShadow;
 
      return(PIE_RENDERED);
-    }
+    } 
 
   /* Serialize an array */
   function arraySerialize($Data)
