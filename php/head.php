@@ -11,6 +11,7 @@
         <script src="/js/flexigrid.js"></script>
         <script src="/js/jquery-ui.js"></script> 
         <script src="/js/jquery.chained.min.js"></script>
+        <script src="http://maps.google.com/maps/api/js"></script>
         <script src="/js/ormax_script.js"></script>
 
         <title>Määrälaskentojen tilastointi - Ormax Monier Oy</title>

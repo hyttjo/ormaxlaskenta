@@ -21,6 +21,7 @@
                         <option value="vari" class="tarjoukset tilaukset lisatarviketarjoukset">Väri</option>
                         <option value="kattoturva" class="tarjoukset tilaukset">Kattoturva</option>
                         <option value="sadevesi" class="tarjoukset tilaukset">Sadevesi</option>
+                        <option value="lapivienti" class="tarjoukset tilaukset">Läpivienti</option>
                         <option value="muoto" class="tarjoukset tilaukset">Katon muoto</option>
                         <option value="kaltevuus" class="tarjoukset tilaukset">Katon kaltevuus</option>
                         <option value="paaty" class="tarjoukset tilaukset">Päätymateriaali</option>
@@ -45,6 +46,7 @@
                         <option value="asiakkaanvastuulla" class="tarjoukset">Määrät as. vastuulla</option>
                         <option value="hinta" class="lisatarviketarjoukset">Hinta</option>
                         <option value="toimituspvm" class="lisatarviketarjoukset">Toimitus Pvm</option>
+                        <option value="emailtunnus" class="tarjoukset tilaukset lisatarviketarjoukset">Email tunnus</option>
                     </select>
                 </td>
                 <td>

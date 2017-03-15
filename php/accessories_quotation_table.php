@@ -14,7 +14,8 @@
     $postalCode = isset($_GET["postal"]) ? $_GET["postal"] : "";
     $city = isset($_GET["city"]) ? $_GET["city"] : "";
     $price = isset($_GET["price"]) ? $_GET["price"] : "";
-    $deliveryDate = isset($_GET["deliverydate"]) ? $_GET["deliverydate"] : "";  
+    $deliveryDate = isset($_GET["deliverydate"]) ? $_GET["deliverydate"] : "";
+    $emailRef = isset($_GET["emailref"]) ? $_GET["emailref"] : "";    
 ?>
         <form autocomplete="off">
             <table id="info-table" class="pure-table table-condensed full-width centered border table-accessories" data-id="" data-table="">
@@ -104,8 +105,11 @@
                             <input type="text" name="street" maxlength="30" data-col="katunimi">
                             <span><?php echo $street ?></span>
                         </td>
-                        <td class="table-label"></td>
-                        <td></td>
+                        <td class="table-label">Sähköpostin tunnus:</td>
+                            <td id="table-emailRef" class="table-value">
+                            <input type="text" name="emailRef"  maxlength="12">
+                            <span><?php echo $emailRef ?></span>                        
+                        </td>
                     </tr>
                     <tr>
                         <td class="table-label"></td>
@@ -139,6 +143,11 @@
                         </td>
                         <td class="table-label"></td>
                         <td></td>
+                    </tr>
+                    <tr>
+                        <td colspan="6" class="table-label">
+                            <div id="google-maps"></div>
+                        </td>
                     </tr>
                 </tbody>
             </table>

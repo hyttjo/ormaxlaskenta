@@ -5,6 +5,7 @@
     $colour = isset($_GET["colour"]) ? $_GET["colour"] : "";
     $safetyProducts = isset($_GET["safety"]) ? $_GET["safety"] : "";
     $rainwaterProducts = isset($_GET["rainwater"]) ? $_GET["rainwater"] : "";
+    $ventilationProducts = isset($_GET["ventilation"]) ? $_GET["ventilation"] : "";
     $roofShape = isset($_GET["shape"]) ? $_GET["shape"] : "";
     $roofPitch = isset($_GET["pitch"]) ? $_GET["pitch"] : "";
     $roofPitch = ($roofPitch == "") ? "0" : $roofPitch;
@@ -23,7 +24,8 @@
     $maker = isset($_GET["maker"]) ? $_GET["maker"] : "";
     $days = isset($_GET["days"]) ? $_GET["days"] : "";
     $calculationTime = isset($_GET["calctime"]) ? $_GET["calctime"] : "";
-    $responsibility = isset($_GET["responsibility"]) ? $_GET["responsibility"] : "";     
+    $responsibility = isset($_GET["responsibility"]) ? $_GET["responsibility"] : "";
+    $emailRef = isset($_GET["emailref"]) ? $_GET["emailref"] : "";       
 ?>
         <form id="info-form" autocomplete="off">
             <table id="info-table" class="pure-table table-condensed full-width centered border table-order_and_quotation" data-id="" data-table="<?php echo $type; ?>">
@@ -136,10 +138,10 @@
                         </td>
                         <td class="table-label"></td>
                         <td></td>
-                        <td class="table-label">Määrät asiakkaan vastuulla:</td>
-                        <td id="table-responsibility" class="table-value">
-                            <input type="text" name="responsibility" maxlength="5" placeholder="Kyllä / Ei" data-col="asiakkaanvastuulla">
-                            <span><?php echo $responsibility ?></span>
+                        <td class="table-label">Sähköpostin tunnus:</td>
+                            <td id="table-emailRef" class="table-value">
+                            <input type="text" name="emailRef"  maxlength="12">
+                            <span><?php echo $emailRef ?></span>                        
                         </td>
                     </tr>
                     <tr>
@@ -153,10 +155,29 @@
                             <input type="text" name="postalCode" maxlength="5" pattern="^(0|[1-9][0-9]*)$" data-col="postinumero">
                             <span><?php echo $postalCode ?></span>
                         </td>
-                        <td rowspan="4" class="table-label"></td>
-                        <td rowspan="4"></td>
-                        <td rowspan="4" class="table-label"></td>
-                        <td rowspan="4"></td>
+                        <td class="table-label"></td>
+                        <td></td>
+                        <td class="table-label">Määrät asiakkaan vastuulla:</td>
+                        <td id="table-responsibility" class="table-value">
+                            <input type="text" name="responsibility" maxlength="5" placeholder="Kyllä / Ei" data-col="asiakkaanvastuulla">
+                            <span><?php echo $responsibility ?></span>
+                        </td>
+
+                    </tr>
+                    <tr>
+                        <td class="table-label">Läpivientituotteet:</td>
+                        <td id="table-ventilationProducts" class="table-value">
+                            <input type="text" name="ventilationProducts" maxlength="5" placeholder="Kyllä / Ei" data-col="lapivienti">
+                            <span><?php echo $ventilationProducts ?></span>
+                        </td>
+                        <td class="table-label">Kunta:</td>
+                        <td id="table-city" class="table-value">
+                            <input type="text" name="city" maxlength="20" data-col="kaupunki">
+                            <span><?php echo $city ?></span>
+                        </td>
+                        <td colspan="4" rowspan="5" class="table-label">
+                            <div id="google-maps"></div>
+                        </td>
                     </tr>
                     <tr>
                         <td class="table-label">Katon muoto:</td>
@@ -164,11 +185,8 @@
                             <input type="text" name="roofShape" maxlength="20" placeholder="Esim. Harjakatto" data-col="muoto">
                             <span><?php echo $roofShape ?></span>
                         </td>
-                        <td class="table-label">Kunta:</td>
-                        <td id="table-city" class="table-value">
-                            <input type="text" name="city" maxlength="20" data-col="kaupunki">
-                            <span><?php echo $city ?></span>
-                        </td>
+                        <td rowspan="3" class="table-label"></td>
+                        <td rowspan="3"></td>
                     </tr>
                     <tr>
                         <td class="table-label">Katon kaltevuus:</td>
@@ -176,8 +194,6 @@
                             <input type="number" name="roofPitch" max="90" min="0" placeholder="Asteluku">
                             <span><?php echo $roofPitch ?></span>
                         </td>
-                        <td rowspan="2" class="table-label"></td>
-                        <td rowspan="2"></td>
                     </tr>
                     <tr>
                         <td class="table-label">Päätytuotteet:</td>
@@ -185,6 +201,12 @@
                             <input type="text" name="vergeSolution" maxlength="11" placeholder="Esim. Päätypelti" data-col="paaty">
                             <span><?php echo $vergeSolution ?></span>
                         </td>
+                    </tr>
+                    <tr class="table-bottom-row">
+                        <td class="table-label"></td>
+                        <td class="table-value"></td>
+                        <td class="table-label"></td>
+                        <td class="table-value"></td>
                     </tr>
                 </tbody>
             </table>
