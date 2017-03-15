@@ -200,6 +200,10 @@ html, body {
     font-weight: bold;
 }
 
+.table-bottom-row {
+    height: 75px;
+}
+
 /* Modal */
 
 .wrap {
@@ -362,6 +366,13 @@ html, body {
 .year-selection > * {
     vertical-align: top;
 }
+
 .year-selection input {
     margin-right: 5px;
+}
+
+/* Google Maps */
+
+#google-maps {
+    height: 250px;
 }
