@@ -9,30 +9,32 @@
     $colour = $data[4]['colour'];
     $safety = $data[5]['safety'];
     $rainwater = $data[6]['rainwater'];
-    $shape = $data[7]['shape'];
-    $pitch = $data[8]['pitch'];
-    $verge = $data[9]['verge'];
-    $delivery = $data[10]['delivery'];
-    $group = $data[11]['group'];
-    $soldnumber = $data[12]['soldnumber'];
-    $soldname = $data[13]['soldname'];
-    $soldref = $data[14]['soldref'];
-    $name = $data[15]['name'];
-    $phone = $data[16]['phone'];
-    $street = $data[17]['street'];
-    $streetno = $data[18]['streetno'];
-    $postal = $data[19]['postal'];
-    $city = $data[20]['city'];
-    $maker = $data[21]['maker'];
-    $days = $data[22]['days'];
-    $calctime = $data[23]['calctime'];
-    $email = $data[24]['email'];
-    $contact = $data[25]['contact'];
-    $factory = $data[26]['factory'];
-    $order = $data[27]['order'];
-    $price = $data[28]['price'];
-    $deliverydate = $data[29]['deliverydate'];
-    $responsibility = $data[30]['responsibility'];
+    $ventilation = $data[7]['ventilation'];
+    $shape = $data[8]['shape'];
+    $pitch = $data[9]['pitch'];
+    $verge = $data[10]['verge'];
+    $delivery = $data[11]['delivery'];
+    $group = $data[12]['group'];
+    $soldnumber = $data[13]['soldnumber'];
+    $soldname = $data[14]['soldname'];
+    $soldref = $data[15]['soldref'];
+    $name = $data[16]['name'];
+    $phone = $data[17]['phone'];
+    $street = $data[18]['street'];
+    $streetno = $data[19]['streetno'];
+    $postal = $data[20]['postal'];
+    $city = $data[21]['city'];
+    $maker = $data[22]['maker'];
+    $days = $data[23]['days'];
+    $calctime = $data[24]['calctime'];
+    $email = $data[25]['email'];
+    $contact = $data[26]['contact'];
+    $factory = $data[27]['factory'];
+    $order = $data[28]['order'];
+    $price = $data[29]['price'];
+    $deliverydate = $data[30]['deliverydate'];
+    $responsibility = $data[31]['responsibility'];
+    $emailref = $data[32]['emailref'];
 
     if ($type == "Tarjous") {
         $sql = "UPDATE tarjoukset SET 
@@ -40,7 +42,8 @@
                 tiili = '$tile', 
                 vari = '$colour', 
                 kattoturva = '$safety', 
-                sadevesi = '$rainwater', 
+                sadevesi = '$rainwater',
+                lapivienti = '$ventilation',  
                 muoto = '$shape', 
                 kaltevuus = '$pitch', 
                 paaty = '$verge', 
@@ -58,7 +61,8 @@
                 tekija = '$maker', 
                 paivienkesto = '$days', 
                 laskennankesto = '$calctime',
-                asiakkaanvastuulla = '$responsibility'
+                asiakkaanvastuulla = '$responsibility',
+                emailtunnus = '$emailref'
                 WHERE id = '$id'"; 
     } else if ($type == "Tilaus") {
         $sql = "UPDATE tilaukset SET 
@@ -66,7 +70,8 @@
                 tiili = '$tile', 
                 vari = '$colour', 
                 kattoturva = '$safety', 
-                sadevesi = '$rainwater', 
+                sadevesi = '$rainwater',
+                lapivienti = '$ventilation', 
                 muoto = '$shape', 
                 kaltevuus = '$pitch', 
                 paaty = '$verge', 
@@ -83,7 +88,8 @@
                 kaupunki = '$city',
                 tekija = '$maker', 
                 paivienkesto = '$days', 
-                laskennankesto = '$calctime'
+                laskennankesto = '$calctime',
+                emailtunnus = '$emailref'
                 WHERE id = '$id'"; 
     } else {
         $sql = "UPDATE lisatarviketarjoukset SET
@@ -101,7 +107,8 @@
                 postinumero = '$postal', 
                 kaupunki = '$city', 
                 hinta = '$price', 
-                toimituspvm = '$deliverydate'
+                toimituspvm = '$deliverydate',
+                emailtunnus = '$emailref'
                 WHERE id = '$id'"; 
     }
 

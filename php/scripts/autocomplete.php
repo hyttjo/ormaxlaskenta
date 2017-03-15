@@ -51,9 +51,9 @@
     }
 
     function GetWhereQueryStringAllFields($table, $param) {
-        $quotation_fields = array("pvm", "tiili", "vari", "kattoturva", "sadevesi", "muoto", "kaltevuus", "paaty", "toimitustapa", "asiakasryhma", "asiakasnumero", "asiakasnimi", "viite", "nimi", "puh", "katunimi", "katunumero", "postinumero", "kaupunki", "tekija", "paivienkesto", "laskennankesto", "asiakkaanvastuulla");
-        $order_fields = array("pvm", "tiili", "vari", "kattoturva", "sadevesi", "muoto", "kaltevuus", "paaty", "toimitustapa", "asiakasryhma", "asiakasnumero", "asiakasnimi", "viite", "nimi", "puh", "katunimi", "katunumero", "postinumero", "kaupunki", "tekija", "paivienkesto", "laskennankesto");
-        $accessories_fields = array("pvm", "tiili", "vari", "talotehdas", "ostotilausnro", "nimi", "puh", "email", "kontaktihenkilo", "katunimi", "katunumero", "postinumero", "kaupunki", "hinta", "toimituspvm");
+        $quotation_fields = array("pvm", "tiili", "vari", "kattoturva", "sadevesi", "lapivienti", "muoto", "kaltevuus", "paaty", "toimitustapa", "asiakasryhma", "asiakasnumero", "asiakasnimi", "viite", "nimi", "puh", "katunimi", "katunumero", "postinumero", "kaupunki", "tekija", "paivienkesto", "laskennankesto", "asiakkaanvastuulla", "emailtunnus");
+        $order_fields = array("pvm", "tiili", "vari", "kattoturva", "sadevesi", "lapivienti", "muoto", "kaltevuus", "paaty", "toimitustapa", "asiakasryhma", "asiakasnumero", "asiakasnimi", "viite", "nimi", "puh", "katunimi", "katunumero", "postinumero", "kaupunki", "tekija", "paivienkesto", "laskennankesto", "emailtunnus");
+        $accessories_fields = array("pvm", "tiili", "vari", "talotehdas", "ostotilausnro", "nimi", "puh", "email", "kontaktihenkilo", "katunimi", "katunumero", "postinumero", "kaupunki", "hinta", "toimituspvm", "emailtunnus");
         $address_fields = array("postinumero", "kaupunki");
 
         if ($table == 'tarjoukset') {

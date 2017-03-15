@@ -6,14 +6,17 @@
     if ($calculationTime == "") $calculationTime = '0';
     if ($price == "") $price = '0';
     if ($deliveryDate == "") $deliveryDate = '0000-00-00';
+    $query = "SELECT * FROM ";
 
     if ($type == "Tarjous") {
-        $sql = "INSERT INTO tarjoukset (pvm, tiili, vari, kattoturva, sadevesi, muoto, kaltevuus, paaty, toimitustapa, asiakasryhma, asiakasnumero, asiakasnimi, viite, nimi, puh, katunimi, katunumero, postinumero, kaupunki, tekija, paivienkesto, laskennankesto, asiakkaanvastuulla)
+        $query .= "tarjoukset ";
+        $sql = "INSERT INTO tarjoukset (pvm, tiili, vari, kattoturva, sadevesi, lapivienti, muoto, kaltevuus, paaty, toimitustapa, asiakasryhma, asiakasnumero, asiakasnimi, viite, nimi, puh, katunimi, katunumero, postinumero, kaupunki, tekija, paivienkesto, laskennankesto, asiakkaanvastuulla, emailtunnus)
                 VALUES ('" . $date . "'," . 
                        "'" . $tile . "'," . 
                        "'" . $colour . "'," . 
                        "'" . $safetyProducts . "'," . 
-                       "'" . $rainwaterProducts . "'," . 
+                       "'" . $rainwaterProducts . "'," .
+                       "'" . $ventilationProducts . "'," . 
                        "'" . $roofShape . "'," . 
                        "'" . $roofPitch . "'," . 
                        "'" . $vergeSolution . "'," . 
@@ -31,14 +34,17 @@
                        "'" . $maker . "'," . 
                        "'" . $days . "'," . 
                        "'" . $calculationTime . "'," . 
-                       "'" . $responsibility . "')"; 
+                       "'" . $responsibility . "'," . 
+                       "'" . $emailRef . "')";
     } else if ($type == "Tilaus") {
-        $sql = "INSERT INTO tilaukset (pvm, tiili, vari, kattoturva, sadevesi, muoto, kaltevuus, paaty, toimitustapa, asiakasryhma, asiakasnumero, asiakasnimi, viite, nimi, puh, katunimi, katunumero, postinumero, kaupunki, tekija, paivienkesto, laskennankesto)
+        $query .= "tilaukset ";
+        $sql = "INSERT INTO tilaukset (pvm, tiili, vari, kattoturva, sadevesi, lapivienti, muoto, kaltevuus, paaty, toimitustapa, asiakasryhma, asiakasnumero, asiakasnimi, viite, nimi, puh, katunimi, katunumero, postinumero, kaupunki, tekija, paivienkesto, laskennankesto, emailtunnus)
                 VALUES ('" . $date . "'," . 
                        "'" . $tile . "'," . 
                        "'" . $colour . "'," . 
                        "'" . $safetyProducts . "'," . 
-                       "'" . $rainwaterProducts . "'," . 
+                       "'" . $rainwaterProducts . "'," .
+                       "'" . $ventilationProducts . "'," .  
                        "'" . $roofShape . "'," . 
                        "'" . $roofPitch . "'," . 
                        "'" . $vergeSolution . "'," . 
@@ -55,9 +61,11 @@
                        "'" . $city . "'," . 
                        "'" . $maker . "'," . 
                        "'" . $days . "'," . 
-                       "'" . $calculationTime . "')"; 
+                       "'" . $calculationTime . "'," . 
+                       "'" . $emailRef . "')";
     } else {
-        $sql = "INSERT INTO lisatarviketarjoukset (pvm, tiili, vari, talotehdas, ostotilausnro, nimi, puh, email, kontaktihenkilo, katunimi, katunumero, postinumero, kaupunki, hinta, toimituspvm)
+        $query .= "lisatarviketarjoukset ";
+        $sql = "INSERT INTO lisatarviketarjoukset (pvm, tiili, vari, talotehdas, ostotilausnro, nimi, puh, email, kontaktihenkilo, katunimi, katunumero, postinumero, kaupunki, hinta, toimituspvm, emailtunnus)
                 VALUES ('" . $date . "'," . 
                        "'" . $tile . "'," . 
                        "'" . $colour . "'," . 
@@ -72,13 +80,20 @@
                        "'" . $postalCode . "'," . 
                        "'" . $city . "'," . 
                        "'" . $price . "'," . 
-                       "'" . $deliveryDate . "')"; 
+                       "'" . $deliveryDate . "'," . 
+                       "'" . $emailRef . "')";
     }
-
-    if ($conn->query($sql) === TRUE) {
-        echo "<div class='info-box background-green margin-vertical-20px'>Lisätty tietokantaan onnistuneesti</div>";
+    $query .= "WHERE pvm = '$date'";
+    $num_rows = $conn->query($query)->num_rows;
+    
+    if ($num_rows == 0) {
+        if ($conn->query($sql) === TRUE) {
+            echo "<div class='info-box background-green margin-vertical-20px'>Lisätty tietokantaan onnistuneesti</div>";
+        } else {
+            echo "<div class='info-box background-red margin-vertical-20px'>Virhe: " . $conn->error . "</div>";
+        }
     } else {
-        echo "<div class='info-box background-red margin-vertical-20px'>Virhe: " . $conn->error . "</div>";
+        echo "<div class='info-box background-red margin-vertical-20px'>Virhe: Tietokanta sisältää jo tämän laskennan.</div>";
     }
 
     $conn->close();
