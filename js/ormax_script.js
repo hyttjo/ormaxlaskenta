@@ -59,7 +59,8 @@ $(document).ready(function () {
                     { display: 'Puhelin', name: 'puh' },
                     { display: 'Katu', name: 'katunimi' },
                     { display: 'Postinumero', name: 'postinumero' },
-                    { display: 'Kunta', name: 'kaupunki' }
+                    { display: 'Kunta', name: 'kaupunki' },
+                    { display: 'Email tunnus', name: 'emailtunnus' }
             ],
             sortname: "pvm",
             sortorder: "desc",
@@ -115,6 +116,7 @@ $(document).ready(function () {
                     { display: 'Katu', name: 'katunimi' },
                     { display: 'Postinumero', name: 'postinumero' },
                     { display: 'Kunta', name: 'kaupunki' },
+                    { display: 'Email tunnus', name: 'emailtunnus' }
             ],
             sortname: "pvm",
             sortorder: "desc",
@@ -169,7 +171,8 @@ $(document).ready(function () {
                     { display: 'Email', name: 'email' },
                     { display: 'Katu', name: 'katunimi' },
                     { display: 'Postinumero', name: 'postinumero' },
-                    { display: 'Kunta', name: 'kaupunki' }
+                    { display: 'Kunta', name: 'kaupunki' },
+                    { display: 'Email tunnus', name: 'emailtunnus' }
             ],
             sortname: "pvm",
             sortorder: "desc",
@@ -228,6 +231,7 @@ $(document).ready(function () {
                 var json = $.parseJSON(data);
 
                 SetInfoTable(type, json);
+                GetAddressForMap();
             }
         });
         $('#order_and_quotation_modal').modal('show');
@@ -263,6 +267,7 @@ $(document).ready(function () {
         $("#table-colour span").text(json.vari);
         $("#table-safetyProducts span").text(json.kattoturva);
         $("#table-rainwaterProducts span").text(json.sadevesi);
+        $("#table-ventilationProducts span").text(json.lapivienti);
         $("#table-roofShape span").text(json.muoto);
         $("#table-roofPitch span").text(json.kaltevuus);
         $("#table-vergeSolution span").text(json.paaty);
@@ -287,6 +292,7 @@ $(document).ready(function () {
         $("#table-price span").text(json.hinta);
         $("#table-deliveryDate span").text(json.toimituspvm);
         $("#table-responsibility span").text(json.asiakkaanvastuulla);
+        $("#table-emailRef span").text(json.emailtunnus);
     }
 
     function SetInfoTableInputValues(json) {
@@ -295,6 +301,7 @@ $(document).ready(function () {
         $("#table-colour input").val(json.vari);
         $("#table-safetyProducts input").val(json.kattoturva);
         $("#table-rainwaterProducts input").val(json.sadevesi);
+        $("#table-ventilationProducts input").val(json.lapivienti);
         $("#table-roofShape input").val(json.muoto);
         $("#table-roofPitch input").val(json.kaltevuus);
         $("#table-vergeSolution input").val(json.paaty);
@@ -319,6 +326,7 @@ $(document).ready(function () {
         $("#table-price input").val(json.hinta);
         $("#table-deliveryDate input").val(json.toimituspvm);
         $("#table-responsibility input").val(json.asiakkaanvastuulla);
+        $("#table-emailRef input").val(json.emailtunnus);
     }
 
     function GetInfoTableJSON() {
@@ -331,6 +339,7 @@ $(document).ready(function () {
         json.push({ 'colour': $("#table-colour input").val() });
         json.push({ 'safety': $("#table-safetyProducts input").val() });
         json.push({ 'rainwater': $("#table-rainwaterProducts input").val() });
+        json.push({ 'ventilation': $("#table-ventilationProducts input").val() });
         json.push({ 'shape': $("#table-roofShape input").val() });
         json.push({ 'pitch': $("#table-roofPitch input").val() });
         json.push({ 'verge': $("#table-vergeSolution input").val() });
@@ -355,6 +364,7 @@ $(document).ready(function () {
         json.push({ 'price': $("#table-price input").val() });
         json.push({ 'deliverydate': $("#table-deliveryDate input").val() });
         json.push({ 'responsibility': $("#table-responsibility input").val() });
+        json.push({ 'emailref': $("#table-emailRef input").val() });
 
         return json;
     }
@@ -774,5 +784,88 @@ $(document).ready(function () {
             $(parent).find('.first_input').prop('readonly', false);
             $(parent).find('.first_input').css('background-color', '#fff');
         }
+    }
+
+    var map;
+    var markers = [];
+    var infowindows = [];
+    Init_GoogleMaps();
+    GetAddressForMap();
+
+    function Init_GoogleMaps() {
+        var latlng = new google.maps.LatLng(62.576083, 26.031889);
+        var mapOptions = { zoom: 6, center: latlng };
+
+        map = new google.maps.Map(document.getElementById('google-maps'), mapOptions);
+
+        $('#order_and_quotation_modal').on('shown.bs.modal', function () {
+            google.maps.event.trigger(map, 'resize');
+            map.setCenter(latlng);
+        });
+    }
+
+    function GetAddressForMap() {
+        var geocoder = new google.maps.Geocoder();
+        var street = $("#table-street span").text();
+        if (street == "toimitusosoite") { street = ""; }
+        var streetNo = $("#table-streetNo span").text();
+        streetNo = streetNo.split(" ")[0];
+        var postalCode = $("#table-postalCode span").text();
+        var city = $("#table-city span").text();
+        var address = street + " " + streetNo + " " + postalCode + " " + city;
+
+        ResetMap();
+        if (address.length > 3) {
+            geocoder.geocode({ 'address': address }, function (results, status) {
+                if (status == google.maps.GeocoderStatus.OK) {
+                    var addr_type = results[0].types[0];
+                    ShowLocationOnMap(results[0].geometry.location, address, addr_type);
+                } else {
+                    alert("Google maps ei löytänyt osoitetta: " + status);
+                }
+            });
+        }
+    }
+
+    function ResetMap() {
+        map.setZoom(6);
+        map.setCenter(new google.maps.LatLng(62.576083, 26.031889));
+
+        for (var i = 0; i < markers.length; i++) {
+            markers[i].setMap(null);
+        }
+        markers.length = 0;
+
+        for (var i = 0; i < infowindows.length; i++) {
+            infowindows[i].setMap(null);
+        }
+        infowindows.length = 0;
+    }
+
+    function ShowLocationOnMap(latlng, address, addr_type) {
+        var zoom = 12;
+        switch (addr_type) {
+            case "administrative_area_level_1": zoom = 6; break;
+            case "locality": zoom = 10; break;
+            case "postal_code": zoom = 11; break;
+            case "street_address": zoom = 15; break;
+        }
+        map.setZoom(zoom);
+
+        marker = new google.maps.Marker({
+            position: latlng,
+            map: map,
+            title: address
+        });
+
+        markers.push(marker);
+
+        var contentString = "<b>" + address + "</b>";
+        infowindow = new google.maps.InfoWindow({ content: contentString });
+        infowindow.open(map, marker);
+
+        infowindows.push(infowindow);
+
+        map.setCenter(latlng);
     }
 });
